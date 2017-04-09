@@ -20,11 +20,12 @@ public class Memory {
 			int  i = 0;
 			byte b = 0;
 			while(line != null && line != ""){
-				for (int j = 0; j < line.length() - 3; j += 4) {
-					String s = line.substring(j, j+4);
-					int num = Integer.parseInt(s);
+				for (int j = 0; j <= line.length() - 8; j += 8) {
+					String s = line.substring(j, j + 8);
+					int num = Integer.parseInt(s, 2);
+					System.out.println(s);
 					b = (byte)num;
-					memory[100 + j/4] = b;
+					memory[100 + j/8] = b;
 				}
 				line = br.readLine();
 			}
