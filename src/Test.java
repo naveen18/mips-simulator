@@ -2,6 +2,7 @@ import java.io.IOException;
 
 import common.AppConfig;
 import common.Memory;
+import common.constants.CommonConstants;
 
 public class Test {
 	public static void main(String args[]) {
@@ -12,8 +13,9 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for(int i=100; i<228; i++){
+		for (int i = CommonConstants.DATA_START_ADD; i < CommonConstants.DATA_END_ADD; i++) {
 			System.out.println(Memory.getWord(i));
-		}	
+		}
+
 	}
 }

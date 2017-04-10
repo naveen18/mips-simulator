@@ -14,7 +14,7 @@ public class Memory {
 
 	public static void readMemory(String filename) throws IOException {
 		if (memory == null) {
-			memory = new byte[228];
+			memory = new byte[384];
 			BufferedReader br = new BufferedReader(new FileReader(filename));
 			String line = br.readLine();
 			int  i = 0;
@@ -23,10 +23,11 @@ public class Memory {
 				for (int j = 0; j <= line.length() - 8; j += 8) {
 					String s = line.substring(j, j + 8);
 					int num = Integer.parseInt(s, 2);
-					System.out.println(s);
 					b = (byte)num;
-					memory[100 + j/8] = b;
+					//each line has 4 bytes, 100 base address for data and j/8 offset for byte
+					memory[256 + i*4 + j/8] = b;  
 				}
+				i++;
 				line = br.readLine();
 			}
 			br.close();
