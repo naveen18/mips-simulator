@@ -3,9 +3,8 @@ package namedinstrucion;
 import instructiontype.ItypeInstruction;
 
 public class LI extends ItypeInstruction{
-	public LI(String rt, String rs, int imm) {
-		this.rt = rt;
-		this.rs = rs;
+	public LI(String reg1, int imm) {
+		this.reg1 = reg1;
 		this.imm = imm;
 	}
 }

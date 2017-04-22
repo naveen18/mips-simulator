@@ -15,9 +15,9 @@ public class Test {
 	public static void main(String args[]) throws Exception {
 		AppConfig.updateConfig("/home/naveen/Desktop/Architecture/config.txt");
 		CodeLoader.loadCode("/home/naveen/Desktop/Architecture/code.txt");
-		for (Entry<Integer, Instruction> inst : CodeLoader.instMap.entrySet()) {
-			System.out.println(inst.toString());
-		}
+//		for (Entry<Integer, Instruction> inst : CodeLoader.instMap.entrySet()) {
+//			System.out.println(inst.toString());
+//		}
 		try {
 			Memory.readMemory("/home/naveen/Desktop/Architecture/data.txt");
 		} catch (IOException e) {

@@ -3,9 +3,9 @@ package namedinstrucion;
 import instructiontype.RtypeInstruction;
 
 public class SW extends RtypeInstruction {
-	public SW(String rd, String rs, String rt) {
-		this.rd = rd;
-		this.rs = rs;
-		this.rt = rt;
+	public SW(String reg1, String reg2, int offset) {
+		this.reg1 = reg1;
+		this.reg2 = reg2;
+		this.offset = offset;
 	}
 }

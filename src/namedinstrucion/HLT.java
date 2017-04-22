@@ -1,5 +1,7 @@
 package namedinstrucion;
 
-public class HLT {
+import common.Instruction;
 
+public class HLT extends Instruction{
+	public HLT(){};
 }
