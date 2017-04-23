@@ -45,7 +45,7 @@ public class Memory {
 		return s;
 	}
 
-	public static int getDouble(int address) {
+	public static double getDouble(int address) {
 		short s1 = twoBytesToShort(memory[address], memory[address + 1]);
 		short s2 = twoBytesToShort(memory[address + 2], memory[address + 3]);
 		return (int) ((s1 << 16) | (s2 & 0xFFFF));
@@ -60,8 +60,8 @@ public class Memory {
 		memory[address + 1] = (byte) ((val >> 8) & 0xFF);
 	}
 
-	public static void storeDouble(int address, int val) {
-		byte[] b = ByteBuffer.allocate(4).putInt(val).array();
+	public static void storeDouble(int address, double val) {
+		byte[] b = ByteBuffer.allocate(4).putDouble(val).array();
 		memory[address] = b[0];
 		memory[address + 1] = b[1];
 		memory[address + 2] = b[2];

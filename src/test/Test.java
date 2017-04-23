@@ -9,12 +9,14 @@ import common.Instruction;
 import common.Memory;
 import common.constants.CommonConstants;
 import pipeline.FetchStage;
+import pipeline.IssueStage;
 
 public class Test {
 	public static int clockCycle = 0;
 	public static void main(String args[]) throws Exception {
 		AppConfig.updateConfig("/home/naveen/Desktop/Architecture/config.txt");
 		CodeLoader.loadCode("/home/naveen/Desktop/Architecture/code.txt");
+		//IssueStage.issueInstructions();
 //		for (Entry<Integer, Instruction> inst : CodeLoader.instMap.entrySet()) {
 //			System.out.println(inst.toString());
 //		}

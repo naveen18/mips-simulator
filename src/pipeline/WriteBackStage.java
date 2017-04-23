@@ -1,11 +1,15 @@
 package pipeline;
 
-public class WriteBackStage {
-	private static WriteBackStage wStage = null;
+import common.Instruction;
 
-	public static WriteBackStage getwStage() {
-		if (wStage == null)
-			wStage = new WriteBackStage();
-		return wStage;
+public class WriteBackStage {
+	public int id;
+	
+	public WriteBackStage(int id){
+		this.id  = id;
+	}
+	
+	public void writebackInstruction(Instruction inst){
+		
 	}
 }

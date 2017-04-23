@@ -35,8 +35,6 @@ public class CodeLoader {
 		instruc = instruc.toUpperCase();
 		Instruction inst1 = null;
 		String[] split1 = instruc.split(":");
-		Instruction inst = new Instruction();
-//		inst.setInstructionNum(count);
 		String opcode = null;
 		int shift = 0;
 		if (split1.length > 1) {
@@ -46,13 +44,10 @@ public class CodeLoader {
 		}
 		String[] split2 = split1[shift].trim().split(" ", 2);
 		opcode = split2[0].trim();
-		//inst.setOpcode(split2[0].trim());
 		if (split2.length >= 2) {
 			String[] operands = split2[1].split(" ");
 			for (int i = 0; i < operands.length; i++)
 				operands[i] = operands[i].replaceAll(",", "");
-			//inst.setOperands(operands);
-			System.out.println(opcode);
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, operands);
 		} else {
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, null);

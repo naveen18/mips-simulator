@@ -2,8 +2,10 @@ package instructiontype;
 
 import common.Instruction;
 
-public class RtypeInstruction extends Instruction {
-	String op;
+public abstract class RtypeInstruction extends Instruction {
+	public RtypeInstruction(String opcode, String pipelineType) {
+		super(opcode, pipelineType);
+	}
 	public String reg1;
 	public String reg2;
 	public String reg3;

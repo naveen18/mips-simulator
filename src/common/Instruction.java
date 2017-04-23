@@ -1,40 +1,21 @@
 package common;
 
-public class Instruction {
-	private int fetchedTimeStap = -1;
-	private int decodeTimeStamp = -1;
-	private int executionTimeStamp = -1;
-	private int writeBackStamp = -1;
-	public int getFetchedTimeStap() {
-		return fetchedTimeStap;
+public abstract class Instruction {
+	public String pipelineType;
+	public String opcode; 
+	public int fetchedTimeStap = -1;
+	public int decodeTimeStamp = -1;
+	public int executionTimeStamp = -1;
+	public int writeBackStamp = -1;
+	
+	public Instruction(String opcode, String pipelineType){
+		this.opcode = opcode;
+		this.pipelineType = pipelineType;
 	}
-
-	public void setFetchedTimeStap(int fetchedTimeStap) {
-		this.fetchedTimeStap = fetchedTimeStap;
-	}
-
-	public int getDecodeTimeStamp() {
-		return decodeTimeStamp;
-	}
-
-	public void setDecodeTimeStamp(int decodeTimeStamp) {
-		this.decodeTimeStamp = decodeTimeStamp;
-	}
-
-	public int getExecutionTimeStamp() {
-		return executionTimeStamp;
-	}
-
-	public void setExecutionTimeStamp(int executionTimeStamp) {
-		this.executionTimeStamp = executionTimeStamp;
-	}
-
-	public int getWriteBackStamp() {
-		return writeBackStamp;
-	}
-
-	public void setWriteBackStamp(int writeBackStamp) {
-		this.writeBackStamp = writeBackStamp;
-	}
+	
+	public abstract void execute();
+	public abstract void write();
+	public abstract void getRegisters();
+	public abstract void getImmediate();
 	
 }

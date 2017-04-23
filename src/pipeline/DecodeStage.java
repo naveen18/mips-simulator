@@ -3,8 +3,12 @@ package pipeline;
 import common.Instruction;
 
 public class DecodeStage {
-	private static DecodeStage decStage = null;
+	public int id;
 	private boolean busy;
+
+	public DecodeStage(int id){
+		this.id = id;
+	}
 
 	public boolean isBusy() {
 		return busy;
@@ -14,14 +18,7 @@ public class DecodeStage {
 		this.busy = busy;
 	}
 
-	public static DecodeStage getDecStage() {
-		if (decStage == null)
-			decStage = new DecodeStage();
-		return decStage;
-	}
-	
 	public void decodeInstruction(Instruction inst){
-		ExecuteStage exStage = ExecuteStage.getExstage();
-		
+		ExecuteStage exStage = new ExecuteStage(this.id);
 	}
 }
