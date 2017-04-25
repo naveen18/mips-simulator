@@ -21,7 +21,7 @@ public class LD extends RtypeInstruction{
 	@Override
 	public void write() {
 		// TODO Auto-generated method stub
-		Register.setRegister(this.reg1, (int)Memory.getDouble((int)Register.getRegister(reg2) + offset));
+		Register.setRegister(this.reg1, Memory.getDouble((int)Register.getRegister(reg2) + offset));
 	}
 
 	@Override

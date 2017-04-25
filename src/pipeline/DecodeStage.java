@@ -1,6 +1,7 @@
 package pipeline;
 
 import common.Instruction;
+import test.Test;
 
 public class DecodeStage {
 	public int id;
@@ -18,7 +19,10 @@ public class DecodeStage {
 		this.busy = busy;
 	}
 
-	public void decodeInstruction(Instruction inst){
+	public void decodeInstruction(Instruction inst, IssueStage is){
 		ExecuteStage exStage = new ExecuteStage(this.id);
+		int val = Test.clockCycle;
+		while(Test.clockCycle <= val);
+		exStage.executeInstruction(inst, is);
 	}
 }

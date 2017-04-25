@@ -8,8 +8,8 @@ public class ExecuteStage {
 		this.id = id;
 	}
 	
-	public void executeInstruction(Instruction inst) {
+	public void executeInstruction(Instruction inst, IssueStage is) {
 		WriteBackStage wbstage = new WriteBackStage(this.id);
-		wbstage.writebackInstruction(inst);
+		wbstage.writebackInstruction(inst, is);
 	}
 }

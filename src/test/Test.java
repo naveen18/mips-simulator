@@ -16,6 +16,9 @@ public class Test {
 	public static void main(String args[]) throws Exception {
 		AppConfig.updateConfig("/home/naveen/Desktop/Architecture/config.txt");
 		CodeLoader.loadCode("/home/naveen/Desktop/Architecture/code.txt");
+		//System.out.println(AppConfig.getAppConfig().toString());
+		FetchStage fs = new FetchStage();
+		fs.fetchInstruction();
 		//IssueStage.issueInstructions();
 //		for (Entry<Integer, Instruction> inst : CodeLoader.instMap.entrySet()) {
 //			System.out.println(inst.toString());

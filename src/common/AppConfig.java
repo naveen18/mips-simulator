@@ -11,6 +11,15 @@ import common.constants.CommonConstants;
 
 public class AppConfig {
 
+	@Override
+	public String toString() {
+		return "AppConfig [numFpAdderUnits=" + numFpAdderUnits + ", numFpMultiplierUnits=" + numFpMultiplierUnits
+				+ ", numFpDividerUnits=" + numFpDividerUnits + ", numCacheBlock=" + numCacheBlock
+				+ ", numFpAdderCycleCount=" + numFpAdderCycleCount + ", numFpMultiplierCycleCount="
+				+ numFpMultiplierCycleCount + ", numFpDividerCycleCount=" + numFpDividerCycleCount
+				+ ", blockSizeInWords=" + blockSizeInWords + "]";
+	}
+
 	public static AppConfig appConfig;
 
 	private int numFpAdderUnits = 0;
@@ -36,7 +45,7 @@ public class AppConfig {
 	}
 
 	public void setNumFpMultiplierUnits(int numFpMultiplierUnits) {
-		this.numFpAdderUnits = numFpMultiplierUnits;
+		this.numFpMultiplierUnits = numFpMultiplierUnits;
 	}
 
 	public int getNumFpDividerUnits() {
