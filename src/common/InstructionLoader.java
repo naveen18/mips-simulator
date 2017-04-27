@@ -113,7 +113,7 @@ public class InstructionLoader {
 		case CommonConstants.LI:
 			reg1 = operands[0];
 			imm = Integer.parseInt(operands[1]);
-			inst = new LI(reg1, imm, opcode, CommonConstants.LOADSTORE);
+			inst = new LI(reg1, imm, opcode, CommonConstants.INTEGER);
 			break;
 		case CommonConstants.LUI:
 			reg1 = operands[0];

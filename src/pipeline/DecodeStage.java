@@ -1,15 +1,14 @@
 package pipeline;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import common.Instruction;
 import test.Test;
 
 public class DecodeStage {
-	public int id;
+	public static Queue<Integer>  decStageQueue = new LinkedList<Integer>();
 	private boolean busy;
-
-	public DecodeStage(int id){
-		this.id = id;
-	}
 
 	public boolean isBusy() {
 		return busy;
@@ -19,10 +18,11 @@ public class DecodeStage {
 		this.busy = busy;
 	}
 
-	public void decodeInstruction(Instruction inst, IssueStage is){
-		ExecuteStage exStage = new ExecuteStage(this.id);
-		int val = Test.clockCycle;
-		while(Test.clockCycle <= val);
-		exStage.executeInstruction(inst, is);
+	public static void decodeInstruction(){
+		if(decStageQueue.isEmpty())
+			return;
+		int instIndex  = decStageQueue.poll();
+//		System.out.println("decode stage completed");
+		ExecuteStage.execStageQueue.offer(instIndex);
 	}
 }

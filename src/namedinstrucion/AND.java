@@ -16,12 +16,12 @@ public class AND extends RtypeInstruction{
 		// TODO Auto-generated method stub
 		double val2 = Register.getRegister(this.reg2);
 		double val3 = Register.getRegister(this.reg3);
-		double val1 = (int)val2 & (int)val3;
-		Register.setRegister(this.reg1, val1);
+		this.result = (int)val2 & (int)val3;
 	}
 
 	@Override
 	public void write() {
+		Register.setRegister(this.reg1, this.result);
 		// TODO Auto-generated method stub
 		
 	}

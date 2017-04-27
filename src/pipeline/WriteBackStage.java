@@ -1,19 +1,20 @@
 package pipeline;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 import common.Instruction;
 import test.Test;
 import pipeline.FetchStage;
 
 public class WriteBackStage {
-	public int id;
+	public static Queue<Integer>  wbStageQueue = new LinkedList<Integer>();
 	
-	public WriteBackStage(int id){
-		this.id  = id;
-	}
-	
-	public void writebackInstruction(Instruction inst, IssueStage is){
+	public static void writebackInstruction(){
 		// perform task
-		FetchStage.isMap.get(this.id).busy = false;
-		System.out.println(Test.clockCycle);
+		if(wbStageQueue.isEmpty())
+			return;
+		int instIndex = wbStageQueue.poll();
+		System.out.println(instIndex + " is finished at " + Test.clockCycle + "\n");
 	}
 }

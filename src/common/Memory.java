@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.lang.StringBuilder;
 
 public class Memory {
-	private static byte[] memory = null;
+	private static byte[] memory;
 
 	public static void readMemory(String filename) throws IOException {
 		if (memory == null) {

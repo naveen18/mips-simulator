@@ -16,14 +16,13 @@ public class DADD extends RtypeInstruction {
 		// TODO Auto-generated method stub
 		double val2 = Register.getRegister(this.reg2);
 		double val3 = Register.getRegister(this.reg3);
-		double val1 = val2 + val3;
-		Register.setRegister(this.reg1, val1);
+		this.result = val2 + val3;
 	}
 
 	@Override
 	public void write() {
 		// TODO Auto-generated method stub
-		
+		Register.setRegister(this.reg1, this.result);	
 	}
 
 	@Override

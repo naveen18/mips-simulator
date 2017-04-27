@@ -15,14 +15,13 @@ public class DADDI extends ItypeInstruction {
 	public void execute() {
 		// TODO Auto-generated method stub
 		double val2 = Register.getRegister(this.reg2);
-		double val1 = val2 + this.imm;
-		Register.setRegister(this.reg1, val1);
+		this.result = val2 + this.imm;
 	}
 
 	@Override
 	public void write() {
 		// TODO Auto-generated method stub
-		
+		Register.setRegister(this.reg1, this.result);
 	}
 
 	@Override

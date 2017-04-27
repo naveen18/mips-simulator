@@ -109,7 +109,7 @@ public class CommonConstants {
 	public static final String F30 = "F20";
 	public static final String F31 = "F19";
 	public static final String F32 = "F32";
-	
+	public static final int cacheMissPenalty = 3;
 	
 
 }

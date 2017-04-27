@@ -2,7 +2,8 @@ package common;
 
 public abstract class Instruction {
 	public String pipelineType;
-	public String opcode; 
+	public String opcode;
+	public double result;
 	public int fetchedTimeStap = -1;
 	public int decodeTimeStamp = -1;
 	public int executionTimeStamp = -1;
