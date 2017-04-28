@@ -41,5 +41,22 @@ public class FuntionalUnitManager {
 		return f;
 	}
 	
+	public static FunctionalUnit putFunctionalUnit(String type){ // function to add units back to pool
+		FunctionalUnit f = null;
+		// check if the max pool size is reached to protect adding more units than allowed
+		if(type == CommonConstants.FPADDER && fpAdderAvailable.size() != AppConfig.appConfig.getNumFpAdderUnits()){
+			fpAdderAvailable.offer(new FpAdder());
+		} else if(type == CommonConstants.FPMULTIPLIER && fpMultiplierAvailable.size() != AppConfig.appConfig.getNumFpMultiplierCycleCount()){
+			fpMultiplierAvailable.offer(new FpMultiplier());
+		}else if(type == CommonConstants.FPDIVIDER && fpDividerAvailable.size() != AppConfig.appConfig.getNumFpDividerCycleCount()){
+			fpDividerAvailable.offer(new FpDivider());
+		} else if(type == CommonConstants.LOADSTORE && loadStoreUnitAvailable.size() != 1){
+			loadStoreUnitAvailable.offer(new LoadStoreUnit());
+		} else if(type == CommonConstants.INTEGER && integerUnitAvailable.size() != 1) {
+			integerUnitAvailable.offer(new IntegerUnit()); 
+		}
+		return f;
+	}
+	
 	
 }

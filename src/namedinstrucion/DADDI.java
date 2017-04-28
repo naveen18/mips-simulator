@@ -1,5 +1,7 @@
 package namedinstrucion;
 
+import java.util.ArrayList;
+
 import instructiontype.ItypeInstruction;
 import registers.Register;
 
@@ -25,14 +27,22 @@ public class DADDI extends ItypeInstruction {
 	}
 
 	@Override
-	public void getRegisters() {
+	public ArrayList<String> getSourceRegisters() {
 		// TODO Auto-generated method stub
-		
+		ArrayList<String> l = new ArrayList<>();
+		l.add(this.reg2);
+		return l;	
 	}
 
 	@Override
-	public void getImmediate() {
+	public Integer getImmediate() {
+		return this.imm;
 		// TODO Auto-generated method stub
-		
+	}
+
+	@Override
+	public String getDestinationRegister() {
+		// TODO Auto-generated method stub
+		return this.reg1;
 	}
 }

@@ -1,5 +1,7 @@
 package namedinstrucion;
 
+import java.util.ArrayList;
+
 import common.Memory;
 import instructiontype.ItypeInstruction;
 import registers.Register;
@@ -24,14 +26,20 @@ public class LI extends ItypeInstruction{
 	}
 
 	@Override
-	public void getRegisters() {
+	public ArrayList<String> getSourceRegisters() {
 		// TODO Auto-generated method stub
-		
+		return null;	
 	}
 
 	@Override
-	public void getImmediate() {
+	public Integer getImmediate() {
 		// TODO Auto-generated method stub
-		
+		return this.imm;
+	}
+
+	@Override
+	public String getDestinationRegister() {
+		// TODO Auto-generated method stub
+		return this.reg1;
 	}
 }

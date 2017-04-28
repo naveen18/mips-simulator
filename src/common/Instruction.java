@@ -1,5 +1,7 @@
 package common;
 
+import java.util.ArrayList;
+
 public abstract class Instruction {
 	public String pipelineType;
 	public String opcode;
@@ -16,7 +18,8 @@ public abstract class Instruction {
 	
 	public abstract void execute();
 	public abstract void write();
-	public abstract void getRegisters();
-	public abstract void getImmediate();
+	public abstract ArrayList<String> getSourceRegisters();
+	public abstract Integer getImmediate();
+	public abstract String getDestinationRegister();
 	
 }

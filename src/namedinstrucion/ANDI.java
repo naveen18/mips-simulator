@@ -1,5 +1,7 @@
 package namedinstrucion;
 
+import java.util.ArrayList;
+
 import instructiontype.ItypeInstruction;
 import registers.Register;
 
@@ -27,14 +29,23 @@ public class ANDI extends ItypeInstruction{
 	}
 
 	@Override
-	public void getRegisters() {
+	public ArrayList<String> getSourceRegisters() {
+		ArrayList<String> l = new ArrayList<>();
+		l.add(this.reg2);
+		return l;
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void getImmediate() {
-		// TODO Auto-generated method stub
-		
+	public Integer getImmediate() {
+		return this.imm;
+		// TODO Auto-generated method stub	
 	}
+	
+	@Override
+	public String getDestinationRegister() {
+		return this.reg1;
+		// TODO Auto-generated method stub
+	}
+	
 }

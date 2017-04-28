@@ -9,6 +9,7 @@ public abstract class RtypeInstruction extends Instruction {
 	public String reg1;
 	public String reg2;
 	public String reg3;
+	public String targetLabel; // for bne and beq
 	public int offset;
 	public int imm;
 	String shamt;

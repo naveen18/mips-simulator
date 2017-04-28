@@ -26,8 +26,17 @@ public class FetchStage {
 			fetchTime = Test.clockCycle + AppConfig.appConfig.getBlockSizeInWords()*CommonConstants.cacheMissPenalty;
 		if(Test.clockCycle < fetchTime)
 			return;
-//		System.out.println(instIndex);
-		IssueStage.issueStageQueue.offer(instIndex);
+		if(IssueStage.busy){
+			return;
+		}
+		Pipeline.scoreboard.add(Pipeline.scoreboardRowId, new ArrayList<Integer>());
+		// filling 8 dummy integers
+		for(int i=0; i<8; i++) Pipeline.scoreboard.get(Pipeline.scoreboardRowId).add(0);
+		Pipeline.scobdIdtoInstId.put(Pipeline.scoreboardRowId, instIndex);
+		IssueStage.issueStageQueue.offer(Pipeline.scoreboardRowId);
+		IssueStage.busy=true;
+		Pipeline.scoreboard.get(Pipeline.scoreboardRowId).set(CommonConstants.FETCH_COLUMN, Test.clockCycle);
+		Pipeline.scoreboardRowId++;
 		Pipeline.instIndex++;
 	}
 

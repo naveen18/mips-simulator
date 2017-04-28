@@ -40,7 +40,7 @@ public class CommonConstants {
 	public static final String FPMULTIPLIER = "FP Multiplier";
 	public static final String FPDIVIDER = "FP divider";
 	public static final String ICACHE = "I-Cache";
-	
+
 	public static final String INTEGER = "Integer type pipleline";
 	public static final String LOADSTORE = "Load Store pipleline";
 
@@ -76,7 +76,7 @@ public class CommonConstants {
 	public static final String R30 = "R20";
 	public static final String R31 = "R19";
 	public static final String R32 = "R32";
-	
+
 	public static final String F1 = "F1";
 	public static final String F2 = "F2";
 	public static final String F3 = "F3";
@@ -110,6 +110,13 @@ public class CommonConstants {
 	public static final String F31 = "F19";
 	public static final String F32 = "F32";
 	public static final int cacheMissPenalty = 3;
-	
+	public static final int FETCH_COLUMN = 0;
+	public static final int ISSUE_COLUMN = 1;
+	public static final int DECODE_COLUMN = 2;
+	public static final int EXECUTE_COLUMN = 3;
+	public static final int WRITEBACK_COLUMN = 4;
+	public static final int RAW_COLUMN = 5;
+	public static final int WAW_COLUMN = 6;
+	public static final int STRUCT_COLUMN = 7;
 
 }

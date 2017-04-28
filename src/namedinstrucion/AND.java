@@ -1,5 +1,7 @@
 package namedinstrucion;
 
+import java.util.ArrayList;
+
 import instructiontype.RtypeInstruction;
 import registers.Register;
 
@@ -23,18 +25,26 @@ public class AND extends RtypeInstruction{
 	public void write() {
 		Register.setRegister(this.reg1, this.result);
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void getRegisters() {
+	public ArrayList<String> getSourceRegisters() {
+		ArrayList<String> l = new ArrayList<>();
+		l.add(this.reg2);
+		l.add(this.reg3);
+		return l;
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
-	public void getImmediate() {
+	public String getDestinationRegister() {
 		// TODO Auto-generated method stub
-		
+		return this.reg1;
+	}
+
+	@Override
+	public Integer getImmediate() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

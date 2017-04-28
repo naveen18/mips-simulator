@@ -1,5 +1,7 @@
 package namedinstrucion;
 
+import java.util.ArrayList;
+
 import instructiontype.RtypeInstruction;
 import registers.Register;
 
@@ -17,8 +19,6 @@ public class ADDD extends RtypeInstruction{
 		double val2 = Register.getRegister(this.reg2);
 		double val3 = Register.getRegister(this.reg3);
 		this.result = val2 + val3;
-		
-		
 	}
 
 	@Override
@@ -28,14 +28,23 @@ public class ADDD extends RtypeInstruction{
 	}
 
 	@Override
-	public void getRegisters() {
+	public ArrayList<String> getSourceRegisters() {
+		ArrayList<String> l = new ArrayList<>();
+		l.add(this.reg2);
+		l.add(this.reg3);
+		return l;
 		// TODO Auto-generated method stub
-		
+	}
+	
+	@Override
+	public String getDestinationRegister() {
+		// TODO Auto-generated method stub
+		return this.reg1;
 	}
 
 	@Override
-	public void getImmediate() {
+	public Integer getImmediate() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

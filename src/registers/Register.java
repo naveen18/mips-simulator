@@ -49,4 +49,19 @@ public class Register {
 		else
 			FWriteStatus[Integer.parseInt(name.substring(1))] = true;
 	}
+	
+	public static void unsetRegWriteStatus(String name){
+		if(name.charAt(0) == 'R')
+			RWriteStatus[Integer.parseInt(name.substring(1))] = false;
+		else
+			FWriteStatus[Integer.parseInt(name.substring(1))] = false;
+	}
+	
+	public static void unsetRegReadStatus(String name){
+		if(name.charAt(0) == 'R')
+			RReadStatus[Integer.parseInt(name.substring(1))] = false;
+		else
+			FReadStatus[Integer.parseInt(name.substring(1))] = false;
+	}
+	
 }

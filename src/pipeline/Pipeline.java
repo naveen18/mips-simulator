@@ -1,5 +1,9 @@
 package pipeline;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;
@@ -8,7 +12,9 @@ import common.constants.CommonConstants;
 import test.Test;
 
 public class Pipeline {
-
+	public static HashMap<Integer, Integer> scobdIdtoInstId = new HashMap<>();
+	public static ArrayList<List<Integer>> scoreboard = new ArrayList<List<Integer>>(); 
+	public static int scoreboardRowId = 0;
 	public static int instIndex;
 	public static void startPipeLine() {
 		int done=0;
@@ -19,7 +25,7 @@ public class Pipeline {
 			DecodeStage.decodeInstruction();
 			IssueStage.issueInstruction();
 			FetchStage.fetchInstruction(Pipeline.instIndex);
-			if(Test.clockCycle>60)
+			if(Test.clockCycle > 150)
 				break;
 		}
 	}
