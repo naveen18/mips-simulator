@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
 import java.io.IOException;
 import java.lang.StringBuilder;
 
@@ -48,7 +49,8 @@ public class Memory {
 	public static double getDouble(int address) {
 		short s1 = twoBytesToShort(memory[address], memory[address + 1]);
 		short s2 = twoBytesToShort(memory[address + 2], memory[address + 3]);
-		return (int) ((s1 << 16) | (s2 & 0xFFFF));
+		int val = (s1 << 16) | (s2 & 0xFFFF);
+		return val;
 	}
 
 	public static void storeByte(int address, int val) {

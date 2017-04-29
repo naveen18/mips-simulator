@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import common.constants.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
 public class CodeLoader {
 	public static TreeMap<Integer, Instruction> instMap = new TreeMap();
-	public static HashMap<String, Integer> lablMap = new HashMap<>();
+	public static HashMap<String, Integer> labelMap = new HashMap<>();
+	public static ArrayList<String> programStore = new ArrayList<>();
 
 	public static void loadCode(String filename) throws Exception {
 		BufferedReader br;
@@ -19,6 +21,7 @@ public class CodeLoader {
 			String line = br.readLine();
 			int count = 0;
 			while (line != null && line.length() != 0) {				
+				programStore.add(line);
 				Instruction instruc = createInstructionObj(line, count);
 				instMap.put(count, instruc);
 				line = br.readLine();
@@ -38,7 +41,7 @@ public class CodeLoader {
 		String opcode = null;
 		int shift = 0;
 		if (split1.length > 1) {
-			lablMap.put(split1[0], count);
+			labelMap.put(split1[0], count);
 			//inst.setLabel(split1[0]);
 			shift = 1;
 		}

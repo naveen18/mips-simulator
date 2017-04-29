@@ -22,10 +22,14 @@ public class FetchStage {
 	static int fetchTime;
 	
 	public static void fetchInstruction(int instIndex) {
-		if(!InstructionCache.presentInCache(instIndex))
-			fetchTime = Test.clockCycle + AppConfig.appConfig.getBlockSizeInWords()*CommonConstants.cacheMissPenalty;
-		if(Test.clockCycle < fetchTime)
-			return;
+		
+		if(AppConfig.appConfig.isCacheOn){
+			if (!InstructionCache.presentInCache(instIndex))
+				fetchTime = Test.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
+			if (Test.clockCycle < fetchTime)
+				return;
+		}
+		
 		if(IssueStage.busy){
 			return;
 		}

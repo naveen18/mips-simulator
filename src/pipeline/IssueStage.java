@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
+
+import com.sun.xml.internal.ws.api.pipe.Pipe;
+
 import java.util.Map.Entry;
 
 import common.CodeLoader;
@@ -28,33 +31,56 @@ public class IssueStage {
 		int scbdrowId = issueStageQueue.peek();
 		int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 		Instruction inst = CodeLoader.instMap.get(instIndex);
-		// check for waw (destination is not being )
-		for(Map.Entry<Integer, FunctionalUnit> m : instUnitmap.entrySet()){
-			if(CodeLoader.instMap.get(m.getKey()).getDestinationRegister().equals(inst.getDestinationRegister())){
-				// write waw harzard
-				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WAW_COLUMN, 1);
-				return;
-			}
+
+		if(inst == null || inst.opcode == CommonConstants.HLT){
+			Pipeline.done = 1;
+			return;
 		}
+		
+		String pipelineType = inst.pipelineType;
 		FunctionalUnit funit = FuntionalUnitManager.getFunctionalUnit(inst.pipelineType);
 		if(funit == null){
 			// write structural hazard
+//			System.out.println("struct hazard for"  + inst.opcode);
 			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.STRUCT_COLUMN, 1);
 			return;
 		}
 		
+		// check for waw (destination is not being )
+		for(Map.Entry<Integer, FunctionalUnit> m : instUnitmap.entrySet()){
+			String destReg = CodeLoader.instMap.get(m.getKey()).getDestinationRegister();
+			if(destReg != null && destReg.equals(inst.getDestinationRegister())){
+				// write waw harzard
+				//System.out.println("waw occured for " + CodeLoader.programStore.get(m.getKey()));
+				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WAW_COLUMN, 1);
+				return;
+			}
+		}
+		
 		//edge case
-		if(inst.opcode == CommonConstants.LD || inst.opcode == CommonConstants.SD) // if double load and store then 2 ccycle req
+		String opcode = inst.opcode;
+		if(opcode!=null && (opcode.equals(CommonConstants.LD) || opcode.equals(CommonConstants.SD))) // if double load and store then 2 ccycle req
 			funit.executionTimeRequired = 2;
 		
-		instUnitmap.put(instIndex, funit);
 		String destReg = inst.getDestinationRegister();
-		if(destReg != null)
+		if(Register.isValidRegName(destReg)){
+//			System.out.println("######################################");
+//			System.out.println("Setting register write status for "+ CodeLoader.programStore.get(instIndex) + " at " + Test.clockCycle);
 			Register.setRegWriteStatus(destReg);
+			Register.setOwnerOfReg(destReg, instIndex);
+		}
+		
+		instUnitmap.put(instIndex, funit);
+		
 		// instruction issued
 		
 //		System.out.println(instIndex);
 		issueStageQueue.poll(); // instruction issued, remove the instruction from issue stage queue
+		if(inst.opcode == CommonConstants.JUMP){
+			String destLabel = inst.getDestinationRegister();
+			int targetAddr = CodeLoader.labelMap.get(destLabel);
+			Pipeline.instIndex = targetAddr;
+		}
 		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Test.clockCycle);
 		DecodeStage.decStageQueue.add(scbdrowId);
 		IssueStage.busy = false;

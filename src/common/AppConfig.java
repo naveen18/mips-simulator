@@ -31,6 +31,7 @@ public class AppConfig {
 	private int numFpMultiplierCycleCount = 0;
 	private int numFpDividerCycleCount = 0;
 	private int blockSizeInWords = 0;
+	public boolean isCacheOn = false;
 	
 
 	public int getNumFpAdderUnits() {

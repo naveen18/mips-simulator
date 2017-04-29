@@ -25,7 +25,9 @@ public class ExecuteStage {
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 			FunctionalUnit f = IssueStage.instUnitmap.get(instIndex);
 			f.currExecutionTime++;
+			System.out.println(f.currExecutionTime);
 			if(f.currExecutionTime == f.executionTimeRequired){
+				System.out.println("execution finished for " + instIndex + " at " + Test.clockCycle);
 				CodeLoader.instMap.get(i).execute();
 				execStageQueue.remove(i);
 				WriteBackStage.wbStageQueue.offer(scbdrowId);

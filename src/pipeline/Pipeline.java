@@ -16,8 +16,8 @@ public class Pipeline {
 	public static ArrayList<List<Integer>> scoreboard = new ArrayList<List<Integer>>(); 
 	public static int scoreboardRowId = 0;
 	public static int instIndex;
+	public static int done = 0;
 	public static void startPipeLine() {
-		int done=0;
 		while(done!=1) {
 			Test.clockCycle++;
 			WriteBackStage.writebackInstruction();
@@ -25,7 +25,7 @@ public class Pipeline {
 			DecodeStage.decodeInstruction();
 			IssueStage.issueInstruction();
 			FetchStage.fetchInstruction(Pipeline.instIndex);
-			if(Test.clockCycle > 150)
+			if(Test.clockCycle > 100)
 				break;
 		}
 	}
