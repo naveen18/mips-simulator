@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.Queue;
 
-import com.sun.xml.internal.ws.api.pipe.Pipe;
+import pipeline.Pipeline;
 
 import java.util.Map.Entry;
 
