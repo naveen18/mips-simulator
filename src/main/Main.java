@@ -1,4 +1,4 @@
-package test;
+package main;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -19,7 +19,7 @@ import pipeline.IssueStage;
 import pipeline.Pipeline;
 import registers.Register;
 
-public class Test {
+public class Main {
 	public static int clockCycle = 0;
 	public static void main(String args[]) throws Exception {
 		AppConfig.updateConfig("/Users/naveen/Desktop/Architecture/config.txt");

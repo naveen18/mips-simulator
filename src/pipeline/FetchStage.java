@@ -1,7 +1,5 @@
 package pipeline;
 
-import test.Test;
-
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +14,7 @@ import common.CodeLoader;
 import common.Instruction;
 import common.InstructionCache;
 import common.constants.CommonConstants;
+import main.Main;
 
 public class FetchStage {
 	public boolean busy;
@@ -25,8 +24,8 @@ public class FetchStage {
 		
 		if(AppConfig.appConfig.isCacheOn){
 			if (!InstructionCache.presentInCache(instIndex))
-				fetchTime = Test.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
-			if (Test.clockCycle < fetchTime)
+				fetchTime = Main.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
+			if (Main.clockCycle < fetchTime)
 				return;
 		}
 		
@@ -39,7 +38,7 @@ public class FetchStage {
 		Pipeline.scobdIdtoInstId.put(Pipeline.scoreboardRowId, instIndex);
 		IssueStage.issueStageQueue.offer(Pipeline.scoreboardRowId);
 		IssueStage.busy=true;
-		Pipeline.scoreboard.get(Pipeline.scoreboardRowId).set(CommonConstants.FETCH_COLUMN, Test.clockCycle);
+		Pipeline.scoreboard.get(Pipeline.scoreboardRowId).set(CommonConstants.FETCH_COLUMN, Main.clockCycle);
 		Pipeline.scoreboardRowId++;
 		Pipeline.instIndex++;
 	}

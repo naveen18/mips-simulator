@@ -7,7 +7,7 @@ import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
 import functionalunits.*;
-import test.Test;
+import main.Main;
 import pipeline.FetchStage;
 import registers.Register;
 
@@ -25,7 +25,7 @@ public class WriteBackStage {
 			int scbdrowId = currIterId;
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 			CodeLoader.instMap.get(instIndex).write();
-			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Test.clockCycle);
+			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Main.clockCycle);
 			currIdChanged = true;
 		}
 		if (prevIterId != -1) {

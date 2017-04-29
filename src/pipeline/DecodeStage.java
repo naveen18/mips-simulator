@@ -9,8 +9,8 @@ import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
 import functionalunits.FunctionalUnit;
+import main.Main;
 import registers.Register;
-import test.Test;
 
 public class DecodeStage {
 	public static List<Integer>  decStageQueue = new LinkedList<Integer>();
@@ -47,7 +47,7 @@ public class DecodeStage {
 				}
 			}
 			ExecuteStage.execStageQueue.add(scbdrowId);
-			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.DECODE_COLUMN, Test.clockCycle);
+			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.DECODE_COLUMN, Main.clockCycle);
 			// decoded one instruction, done for this clock cycle
 			break;
 		}	

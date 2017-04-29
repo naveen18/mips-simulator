@@ -17,7 +17,7 @@ import namedinstrucion.LI;
 import registers.Register;
 import functionalunits.FunctionalUnit;
 import functionalunits.FuntionalUnitManager;
-import test.Test;
+import main.Main;
 
 public class IssueStage {
 	public static boolean busy;
@@ -79,7 +79,7 @@ public class IssueStage {
 			int targetAddr = CodeLoader.labelMap.get(destLabel);
 			Pipeline.instIndex = targetAddr;
 		}
-		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Test.clockCycle);
+		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
 		DecodeStage.decStageQueue.add(scbdrowId);
 		IssueStage.busy = false;
 	}

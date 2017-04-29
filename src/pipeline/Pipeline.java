@@ -9,7 +9,7 @@ import common.CodeLoader;
 import common.Instruction;
 import common.InstructionCache;
 import common.constants.CommonConstants;
-import test.Test;
+import main.Main;
 
 public class Pipeline {
 	public static HashMap<Integer, Integer> scobdIdtoInstId = new HashMap<>();
@@ -19,7 +19,7 @@ public class Pipeline {
 	public static int done = 0;
 	public static void startPipeLine() throws Exception {
 		while(done!=1) {
-			Test.clockCycle++;
+			Main.clockCycle++;
 			WriteBackStage.writebackInstruction();
 			ExecuteStage.executeInstruction();
 			DecodeStage.decodeInstruction();

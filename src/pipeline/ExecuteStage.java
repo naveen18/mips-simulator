@@ -10,7 +10,7 @@ import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
 import functionalunits.FunctionalUnit;
-import test.Test;
+import main.Main;
 
 public class ExecuteStage {
 	public static List<Integer> execStageQueue = new LinkedList<Integer>();
@@ -31,7 +31,7 @@ public class ExecuteStage {
 				CodeLoader.instMap.get(i).execute();
 				execStageQueue.remove(i);
 				WriteBackStage.wbStageQueue.offer(scbdrowId);
-				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.EXECUTE_COLUMN, Test.clockCycle);
+				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.EXECUTE_COLUMN, Main.clockCycle);
 			}
 		}
 	}
