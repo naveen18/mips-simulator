@@ -50,6 +50,8 @@ public class IssueStage {
 			String destReg = CodeLoader.instMap.get(m.getKey()).getDestinationRegister();
 			if(destReg != null && destReg.equals(inst.getDestinationRegister())){
 				// write waw harzard
+				// put back the funtional unit in pool
+				FuntionalUnitManager.putFunctionalUnit(inst.pipelineType);
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WAW_COLUMN, 1);
 				return;
 			}

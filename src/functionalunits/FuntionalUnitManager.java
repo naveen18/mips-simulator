@@ -30,7 +30,6 @@ public class FuntionalUnitManager {
 		FunctionalUnit f = null;
 		if(type == CommonConstants.FPADDER && !fpAdderAvailable.isEmpty()){
 			f = fpAdderAvailable.poll();
-			//System.out.println("getting Adder unit at" + Test.clockCycle );
 		} else if(type == CommonConstants.FPMULTIPLIER && !fpMultiplierAvailable.isEmpty()){
 			f = fpMultiplierAvailable.poll();
 		}else if(type == CommonConstants.FPDIVIDER && !fpDividerAvailable.isEmpty()){
