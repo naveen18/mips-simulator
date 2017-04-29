@@ -38,10 +38,9 @@ public class IssueStage {
 		}
 		
 		String pipelineType = inst.pipelineType;
-		FunctionalUnit funit = FuntionalUnitManager.getFunctionalUnit(inst.pipelineType);
+		FunctionalUnit funit = FuntionalUnitManager.getFunctionalUnit(pipelineType);
 		if(funit == null){
-			// write structural hazard
-//			System.out.println("struct hazard for"  + inst.opcode);
+			// if unit not available then write structure hazard
 			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.STRUCT_COLUMN, 1);
 			return;
 		}
@@ -51,7 +50,6 @@ public class IssueStage {
 			String destReg = CodeLoader.instMap.get(m.getKey()).getDestinationRegister();
 			if(destReg != null && destReg.equals(inst.getDestinationRegister())){
 				// write waw harzard
-				//System.out.println("waw occured for " + CodeLoader.programStore.get(m.getKey()));
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WAW_COLUMN, 1);
 				return;
 			}
@@ -59,23 +57,21 @@ public class IssueStage {
 		
 		//edge case
 		String opcode = inst.opcode;
-		if(opcode!=null && (opcode.equals(CommonConstants.LD) || opcode.equals(CommonConstants.SD))) // if double load and store then 2 ccycle req
+		if(opcode!=null && (opcode.equals(CommonConstants.LD) || opcode.equals(CommonConstants.SD))) // if double load and store then 2 cycle required
 			funit.executionTimeRequired = 2;
 		
 		String destReg = inst.getDestinationRegister();
 		if(Register.isValidRegName(destReg)){
-//			System.out.println("######################################");
-//			System.out.println("Setting register write status for "+ CodeLoader.programStore.get(instIndex) + " at " + Test.clockCycle);
 			Register.setRegWriteStatus(destReg);
 			Register.setOwnerOfReg(destReg, instIndex);
 		}
-		
+		// put the inst with the corresponding unit alloted to it in map
 		instUnitmap.put(instIndex, funit);
+		//System.out.println(instIndex + "inst issued");
 		
-		// instruction issued
-		
-//		System.out.println(instIndex);
-		issueStageQueue.poll(); // instruction issued, remove the instruction from issue stage queue
+		// instruction issued, remove the instruction from issue stage queue
+		issueStageQueue.poll();
+		// if instruction is jump then change the program counter to target address
 		if(inst.opcode == CommonConstants.JUMP){
 			String destLabel = inst.getDestinationRegister();
 			int targetAddr = CodeLoader.labelMap.get(destLabel);
@@ -84,6 +80,5 @@ public class IssueStage {
 		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Test.clockCycle);
 		DecodeStage.decStageQueue.add(scbdrowId);
 		IssueStage.busy = false;
-//		System.out.println("issue stage completed");
 	}
 }

@@ -12,45 +12,37 @@ import pipeline.FetchStage;
 import registers.Register;
 
 public class WriteBackStage {
-	public static Queue<Integer>  wbStageQueue = new LinkedList<Integer>();
+	public static Queue<Integer> wbStageQueue = new LinkedList<Integer>();
 	public static int prevIterId = -1;
 	public static int currIterId = -1;
-	public static boolean currIdChanged = false; // to check if the currIterId is updated or not
-	
-	public static void writebackInstruction(){
-		// perform task
-		
-		if(!wbStageQueue.isEmpty()){
+	public static boolean currIdChanged = false; // to check if the currIterId
+													// is updated or not
+
+	public static void writebackInstruction() {
+		// in current iteration only write the finish clock cycle.
+		if (!wbStageQueue.isEmpty()) {
 			currIterId = wbStageQueue.poll();
 			int scbdrowId = currIterId;
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 			CodeLoader.instMap.get(instIndex).write();
-			Instruction inst = CodeLoader.instMap.get(instIndex);
-			if(inst.getDestinationRegister() != null){
-//				System.out.println(Test.clockCycle);
-//				System.out.println(" unsetting register status " + inst.getDestinationRegister() + " by " + CodeLoader.programStore.get(instIndex));
-				Register.unsetRegWriteStatus(inst.getDestinationRegister());
-				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Test.clockCycle);
-			}
+			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Test.clockCycle);
 			currIdChanged = true;
 		}
-		
-		if(prevIterId != -1){
-			//.out.println("prev id " + prevIterId);
-			//System.out.println("curr id " + currIterId);
-			//System.out.println("entered  at " + Test.clockCycle);
+		if (prevIterId != -1) {
+			// put back functional unit in pool for previous iteration
 			int scbdrowId = prevIterId;
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
-			// put back functional unit in pool
-			//System.out.println("putting back " + CodeLoader.instMap.get(instIndex).pipelineType + " at " + Test.clockCycle);
 			functionalunits.FuntionalUnitManager.putFunctionalUnit(CodeLoader.instMap.get(instIndex).pipelineType);
-			// remove the completed instruction from instruction funUnit map
 			IssueStage.instUnitmap.remove(instIndex);
-			//CodeLoader.instMap.get(instIndex).write();
 			Instruction inst = CodeLoader.instMap.get(instIndex);
+			if (inst.getDestinationRegister() != null) {
+				// free the destination register for previous iteration
+				Register.unsetRegWriteStatus(inst.getDestinationRegister());
+			}
 			prevIterId = -1;
 		}
-		if(currIdChanged) prevIterId = currIterId;
+		if (currIdChanged)
+			prevIterId = currIterId;
 		currIdChanged = false;
 	}
 }

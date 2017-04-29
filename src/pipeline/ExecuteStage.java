@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-
-
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;
@@ -16,36 +14,25 @@ import test.Test;
 
 public class ExecuteStage {
 	public static List<Integer> execStageQueue = new LinkedList<Integer>();
+
 	public static void executeInstruction() {
-		if(execStageQueue.isEmpty())
+		// if no instruction to execute then stall
+		if (execStageQueue.isEmpty())
 			return;
-		
-		for(int i=0; i<execStageQueue.size(); i++){
+		// execute all the instruction available for one clock cycle
+		for (int i = 0; i < execStageQueue.size(); i++) {
 			int scbdrowId = execStageQueue.get(i);
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 			FunctionalUnit f = IssueStage.instUnitmap.get(instIndex);
 			f.currExecutionTime++;
-			System.out.println(f.currExecutionTime);
-			if(f.currExecutionTime == f.executionTimeRequired){
-				System.out.println("execution finished for " + instIndex + " at " + Test.clockCycle);
+			// if the execution time is complete for an instruction then push
+			// it to writeback stage
+			if (f.currExecutionTime == f.executionTimeRequired) {
 				CodeLoader.instMap.get(i).execute();
 				execStageQueue.remove(i);
 				WriteBackStage.wbStageQueue.offer(scbdrowId);
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.EXECUTE_COLUMN, Test.clockCycle);
 			}
 		}
-//		System.out.println("execute stage completed");
 	}
-
-//	public static int getExecutionTime(Instruction inst) {
-//		int count = 1;
-//		if (inst.pipelineType.equals(CommonConstants.FPADDER))
-//			count = AppConfig.appConfig.getNumFpAdderCycleCount();
-//		else if (inst.pipelineType.equals(CommonConstants.FPMULTIPLIER))
-//			count = AppConfig.appConfig.getNumFpMultiplierCycleCount();
-//		else if (inst.pipelineType.equals(CommonConstants.FPDIVIDER))
-//			count = AppConfig.appConfig.getNumFpDividerCycleCount();
-//		return count;
-//	}
-	
 }

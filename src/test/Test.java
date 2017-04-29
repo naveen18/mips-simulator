@@ -36,12 +36,11 @@ public class Test {
 		Pipeline.startPipeLine();
 		printScoreBoard();
 		storeScoreBoard();
-		System.out.println(Register.isValidRegName(""));
 	}
 	
 	public static void printScoreBoard(){
 		printHeaders();
-		for(int i=0; i<Pipeline.scoreboard.size(); i++){
+		for(int i=0; i<Pipeline.scoreboard.size() && i < CodeLoader.programStore.size(); i++){
 			String inst = CodeLoader.programStore.get(i);
 			int lenCode = inst.length();
 			System.out.printf("%s", inst);

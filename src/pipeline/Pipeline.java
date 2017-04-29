@@ -17,7 +17,7 @@ public class Pipeline {
 	public static int scoreboardRowId = 0;
 	public static int instIndex;
 	public static int done = 0;
-	public static void startPipeLine() {
+	public static void startPipeLine() throws Exception {
 		while(done!=1) {
 			Test.clockCycle++;
 			WriteBackStage.writebackInstruction();
@@ -25,8 +25,6 @@ public class Pipeline {
 			DecodeStage.decodeInstruction();
 			IssueStage.issueInstruction();
 			FetchStage.fetchInstruction(Pipeline.instIndex);
-			if(Test.clockCycle > 100)
-				break;
 		}
 	}
 }
