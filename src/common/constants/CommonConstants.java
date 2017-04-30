@@ -23,8 +23,8 @@ public class CommonConstants {
 	public static final String LI = "LI";
 	public static final String LUI = "LUI";
 	public static final String ADDD = "ADD.D";
-	public static final String MULTD = "MULT.D";
-	public static final String DIVD = "DIV";
+	public static final String MULTD = "MUL.D";
+	public static final String DIVD = "DIV.D";
 	public static final String SUBD = "SUB.D";
 
 	// Control Instructions
