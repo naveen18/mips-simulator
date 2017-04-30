@@ -146,22 +146,22 @@ public class InstructionLoader {
 			break;
 		case CommonConstants.JUMP:
 			reg1 = operands[0];
-			inst = new J(reg1, opcode, CommonConstants.INTEGER);
+			inst = new J(reg1, opcode, CommonConstants.UNKNOWN_UNIT);
 			break;
 		case CommonConstants.BEQ:
 			reg1 = operands[0];
 			reg2 = operands[1];
 			reg3 = operands[2];
-			inst = new BEQ(reg1, reg2, reg3, opcode, CommonConstants.INTEGER);
+			inst = new BEQ(reg1, reg2, reg3, opcode, CommonConstants.UNKNOWN_UNIT);
 			break;
 		case CommonConstants.BNE:
 			reg1 = operands[0];
 			reg2 = operands[1];
 			reg3 = operands[2];
-			inst = new BNE(reg1, reg2, reg3, opcode, CommonConstants.INTEGER);
+			inst = new BNE(reg1, reg2, reg3, opcode, CommonConstants.UNKNOWN_UNIT);
 			break;
 		case CommonConstants.HLT:
-			inst = new HLT(opcode, CommonConstants.INTEGER);
+			inst = new HLT(opcode, CommonConstants.UNKNOWN_UNIT);
 			break;
 		default:
 			throw new Exception("Invalid instruction " + opcode);
