@@ -10,6 +10,7 @@ import common.Instruction;
 import common.InstructionCache;
 import common.constants.CommonConstants;
 import main.Main;
+import util.PrintMethods;
 
 public class Pipeline {
 	public static HashMap<Integer, Integer> scobdIdtoInstId = new HashMap<>();
@@ -17,6 +18,8 @@ public class Pipeline {
 	public static int scoreboardRowId = 0;
 	public static int instIndex;
 	public static int done = 0;
+	public static boolean oneCycleDelay = false;
+	public static boolean halted = false;
 	public static void startPipeLine() throws Exception {
 		while(done!=1) {
 			Main.clockCycle++;
@@ -25,6 +28,13 @@ public class Pipeline {
 			DecodeStage.decodeInstruction();
 			IssueStage.issueInstruction();
 			FetchStage.fetchInstruction(Pipeline.instIndex);
+			if(Main.clockCycle > 2000){
+				//System.out.println("FED UP");
+				break;
+			}
+			//PrintMethods.printScoreBoard();
 		}
+		
 	}
+	
 }

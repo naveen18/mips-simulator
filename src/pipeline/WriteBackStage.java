@@ -41,8 +41,9 @@ public class WriteBackStage {
 			}
 			prevIterId = -1;
 		}
-		if (currIdChanged)
+		if (currIdChanged) {
 			prevIterId = currIterId;
+		}
 		currIdChanged = false;
 	}
 }

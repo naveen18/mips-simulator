@@ -24,16 +24,31 @@ public class IssueStage {
 	public static Queue<Integer>  issueStageQueue = new LinkedList<Integer>();
 	public static HashMap<Integer, FunctionalUnit> instUnitmap = new HashMap<>();
 	
-	public static void issueInstruction() {
+	public static void issueInstruction() throws Exception {
 		if(issueStageQueue.isEmpty()){
+			IssueStage.busy = false;
 			return;
 		}
 		int scbdrowId = issueStageQueue.peek();
 		int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 		Instruction inst = CodeLoader.instMap.get(instIndex);
-
-		if(inst == null || inst.opcode == CommonConstants.HLT){
-			Pipeline.done = 1;
+		if(inst == null || inst.opcode.equals(CommonConstants.HLT)){
+			IssueStage.issueStageQueue.clear();
+			IssueStage.busy = false;
+			if(instIndex < CodeLoader.programStore.size() - 1){
+				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
+			}
+			return;
+		}
+		
+		if(inst.opcode == CommonConstants.JUMP){
+			// dont need to check for structure hazard in Jump
+			String destLabel = inst.getDestinationRegister();
+			int targetAddr = CodeLoader.labelMap.get(destLabel);
+			Pipeline.instIndex = targetAddr;
+			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
+			IssueStage.busy = false;
+			IssueStage.issueStageQueue.poll();
 			return;
 		}
 		
@@ -47,6 +62,9 @@ public class IssueStage {
 		
 		// check for waw (destination is not being )
 		for(Map.Entry<Integer, FunctionalUnit> m : instUnitmap.entrySet()){
+			// dont check waw for BNE or BEQ as they dont write register
+			if(inst.opcode.equals(CommonConstants.BNE) || inst.opcode.equals(CommonConstants.BEQ))
+				break;
 			String destReg = CodeLoader.instMap.get(m.getKey()).getDestinationRegister();
 			if(destReg != null && destReg.equals(inst.getDestinationRegister())){
 				// write waw harzard
@@ -59,8 +77,10 @@ public class IssueStage {
 		
 		//edge case
 		String opcode = inst.opcode;
-		if(opcode!=null && (opcode.equals(CommonConstants.LD) || opcode.equals(CommonConstants.SD))) // if double load and store then 2 cycle required
+		if(opcode!=null && (opcode.equals(CommonConstants.LD) || opcode.equals(CommonConstants.SD))) {
+			// if double load and store then 2 cycle required
 			funit.executionTimeRequired = 2;
+		}
 		
 		String destReg = inst.getDestinationRegister();
 		if(Register.isValidRegName(destReg)){
@@ -74,11 +94,12 @@ public class IssueStage {
 		// instruction issued, remove the instruction from issue stage queue
 		issueStageQueue.poll();
 		// if instruction is jump then change the program counter to target address
-		if(inst.opcode == CommonConstants.JUMP){
-			String destLabel = inst.getDestinationRegister();
-			int targetAddr = CodeLoader.labelMap.get(destLabel);
-			Pipeline.instIndex = targetAddr;
+		
+		if(inst.opcode.equals(CommonConstants.BNE) || inst.opcode.equals(CommonConstants.BEQ)){
+			// BEQ or BNE issued, need to stall the pipeline until condition is resolved
+			issueStageQueue.clear();
 		}
+
 		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
 		DecodeStage.decStageQueue.add(scbdrowId);
 		IssueStage.busy = false;

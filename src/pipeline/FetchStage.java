@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
 import java.util.Queue;
 
 import common.AppConfig;
@@ -21,7 +22,12 @@ public class FetchStage {
 	static int fetchTime;
 	
 	public static void fetchInstruction(int instIndex) {
-		
+		if(instIndex > CodeLoader.programStore.size()-1)
+			return;
+		if(Pipeline.oneCycleDelay == true){
+			Pipeline.oneCycleDelay = false;
+			return;
+		}
 		if(AppConfig.appConfig.isCacheOn){
 			if (!InstructionCache.presentInCache(instIndex))
 				fetchTime = Main.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
@@ -32,6 +38,8 @@ public class FetchStage {
 		if(IssueStage.busy){
 			return;
 		}
+		
+//		System.out.println("fetching " + instIndex);
 		Pipeline.scoreboard.add(Pipeline.scoreboardRowId, new ArrayList<Integer>());
 		// filling 8 dummy integers
 		for(int i=0; i<8; i++) Pipeline.scoreboard.get(Pipeline.scoreboardRowId).add(0);
