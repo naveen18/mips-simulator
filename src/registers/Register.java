@@ -7,61 +7,83 @@ public class Register {
 	static double[] F = new double[32];
 	static boolean[] RWriteStatus = new boolean[32];
 	static boolean[] FWriteStatus = new boolean[32];
-	static int[] ownerOfRegR = new int[32]; // arrays to store the instruction who has lock i=on corresponding register 
+	static int[] ownerOfRegR = new int[32]; // arrays to store the instruction
+											// who has lock i=on corresponding
+											// register
 	static int[] ownerOfRegF = new int[32];
-	
-	public static int getOwnerOfReg(String name) {
+
+	public static int getOwnerOfReg(String name) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (name.charAt(0) == 'R')
-			return ownerOfRegR[Integer.parseInt(name.substring(1))];
+			return ownerOfRegR[num - 1];
 		else
-			return ownerOfRegF[Integer.parseInt(name.substring(1))];
+			return ownerOfRegF[num - 1];
 	}
 
-	public static void setOwnerOfReg(String name, int instIndex) {
+	public static void setOwnerOfReg(String name, int instIndex) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (name.charAt(0) == 'R')
-			ownerOfRegR[Integer.parseInt(name.substring(1))] = instIndex;
+			ownerOfRegR[num - 1] = instIndex;
 		else
-			ownerOfRegF[Integer.parseInt(name.substring(1))] = instIndex;
-	}
-	
-	public static double getRegister(String name) {
-
-		if (name.charAt(0) == 'R')
-			return R[Integer.parseInt(name.substring(1))];
-		else
-			return F[Integer.parseInt(name.substring(1))];
+			ownerOfRegF[num - 1] = instIndex;
 	}
 
-	public static void setRegister(String name, double value) {
+	public static double getRegister(String name) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (name.charAt(0) == 'R')
-			R[Integer.parseInt(name.substring(1))] = value;
+			return R[num - 1];
 		else
-			F[Integer.parseInt(name.substring(1))] = value;
+			return F[num - 1];
 	}
 
-	public static boolean getRegWriteStatus(String name) {
+	public static void setRegister(String name, double value) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (name.charAt(0) == 'R')
-			return RWriteStatus[Integer.parseInt(name.substring(1))];
+			R[num - 1] = value;
 		else
-			return FWriteStatus[Integer.parseInt(name.substring(1))];
+			F[num - 1] = value;
 	}
 
-	public static void setRegWriteStatus(String name) {
+	public static boolean getRegWriteStatus(String name) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
+		if (name.charAt(0) == 'R')
+			return RWriteStatus[num - 1];
+		else
+			return FWriteStatus[num - 1];
+	}
+
+	public static void setRegWriteStatus(String name) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (!isValidRegName(name))
 			return;
 		if (name.charAt(0) == 'R')
-			RWriteStatus[Integer.parseInt(name.substring(1))] = true;
+			RWriteStatus[num - 1] = true;
 		else
-			FWriteStatus[Integer.parseInt(name.substring(1))] = true;
+			FWriteStatus[num - 1] = true;
 	}
 
-	public static void unsetRegWriteStatus(String name) {
+	public static void unsetRegWriteStatus(String name) throws Exception {
+		int num = Integer.parseInt(name.substring(1));
+		if (!isValidRegName(name))
+			throw new Exception("Register number should be from 1 to 32");
 		if (!isValidRegName(name))
 			return;
 		if (name.charAt(0) == 'R')
-			RWriteStatus[Integer.parseInt(name.substring(1))] = false;
+			RWriteStatus[num - 1] = false;
 		else
-			FWriteStatus[Integer.parseInt(name.substring(1))] = false;
+			FWriteStatus[num - 1] = false;
 	}
 
 	public static boolean isValidRegName(String destReg) {
