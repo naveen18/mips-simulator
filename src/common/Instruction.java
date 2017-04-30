@@ -16,8 +16,8 @@ public abstract class Instruction {
 		this.pipelineType = pipelineType;
 	}
 	
-	public abstract void execute();
-	public abstract void write();
+	public abstract void execute() throws Exception;
+	public abstract void write() throws Exception;
 	public abstract ArrayList<String> getSourceRegisters();
 	public abstract Integer getImmediate();
 	public abstract String getDestinationRegister();

@@ -26,7 +26,7 @@ import namedinstrucion.J;
 
 public class InstructionLoader {
 
-	public static Instruction getLoadedInstruction(String opcode, String[] operands) {
+	public static Instruction getLoadedInstruction(String opcode, String[] operands) throws Exception {
 		// TODO Auto-generated method stub
 		Instruction inst = null;
 		String reg1;
@@ -163,6 +163,8 @@ public class InstructionLoader {
 		case CommonConstants.HLT:
 			inst = new HLT(opcode, CommonConstants.INTEGER);
 			break;
+		default:
+			throw new Exception("Invalid instruction " + opcode);
 		}
 
 		return inst;
