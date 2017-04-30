@@ -15,7 +15,7 @@ import main.Main;
 public class ExecuteStage {
 	public static List<Integer> execStageQueue = new LinkedList<Integer>();
 
-	public static void executeInstruction() {
+	public static void executeInstruction() throws Exception {
 		// if no instruction to execute then stall
 		if (execStageQueue.isEmpty())
 			return;

@@ -6,8 +6,8 @@ import pipeline.Pipeline;
 public class PrintMethods {
 	public static void printScoreBoard(){
 		printHeaders();
-		for(int i=0; i<Pipeline.scoreboard.size() && i < CodeLoader.programStore.size(); i++){
-			String inst = CodeLoader.programStore.get(i);
+		for(int i=0; i<Pipeline.scoreboard.size(); i++){
+			String inst = CodeLoader.programStore.get(Pipeline.scobdIdtoInstId.get(i));
 			int lenCode = inst.length();
 			System.out.printf("%s", inst);
 			printSpace(20-lenCode);

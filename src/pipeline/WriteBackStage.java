@@ -18,7 +18,7 @@ public class WriteBackStage {
 	public static boolean currIdChanged = false; // to check if the currIterId
 													// is updated or not
 
-	public static void writebackInstruction() {
+	public static void writebackInstruction() throws Exception {
 		// in current iteration only write the finish clock cycle.
 		if (!wbStageQueue.isEmpty()) {
 			currIterId = wbStageQueue.poll();
