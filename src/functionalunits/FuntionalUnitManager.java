@@ -28,16 +28,18 @@ public class FuntionalUnitManager {
 	
 	public static FunctionalUnit getFunctionalUnit(String type){
 		FunctionalUnit f = null;
-		if(type == CommonConstants.FPADDER && !fpAdderAvailable.isEmpty()){
+		if(type.equals(CommonConstants.FPADDER)&& !fpAdderAvailable.isEmpty()){
 			f = fpAdderAvailable.poll();
-		} else if(type == CommonConstants.FPMULTIPLIER && !fpMultiplierAvailable.isEmpty()){
+		} else if(type.equals(CommonConstants.FPMULTIPLIER) && !fpMultiplierAvailable.isEmpty()){
 			f = fpMultiplierAvailable.poll();
-		}else if(type == CommonConstants.FPDIVIDER && !fpDividerAvailable.isEmpty()){
+		}else if(type.equals(CommonConstants.FPDIVIDER) && !fpDividerAvailable.isEmpty()){
 			f = fpDividerAvailable.poll();
-		} else if(type == CommonConstants.LOADSTORE && !loadStoreUnitAvailable.isEmpty()){
+		} else if(type.equals(CommonConstants.LOADSTORE) && !loadStoreUnitAvailable.isEmpty()){
 			f = loadStoreUnitAvailable.poll();
-		} else if(type == CommonConstants.INTEGER && !integerUnitAvailable.isEmpty()) {
+		} else if(type.equals(CommonConstants.INTEGER) && !integerUnitAvailable.isEmpty()) {
 			f = integerUnitAvailable.poll(); 
+		} else if(type.equals(CommonConstants.UNKNOWN_UNIT)){
+			f = new UnknownUnit();
 		}
 		return f;
 	}
