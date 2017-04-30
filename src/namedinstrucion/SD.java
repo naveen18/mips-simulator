@@ -21,7 +21,7 @@ public class SD extends RtypeInstruction{
 	}
 
 	@Override
-	public void write() {
+	public void write() throws Exception {
 		// TODO Auto-generated method stub
 		Memory.storeDouble((int)Register.getRegister(this.reg2) + offset, Register.getRegister(this.reg1));
 	}

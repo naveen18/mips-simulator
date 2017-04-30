@@ -14,7 +14,7 @@ public class ANDI extends ItypeInstruction{
 	}
 
 	@Override
-	public void execute() {
+	public void execute() throws Exception {
 		// TODO Auto-generated method stub
 		double val2 = Register.getRegister(this.reg2);
 		this.result = val2 + this.imm;
@@ -22,7 +22,7 @@ public class ANDI extends ItypeInstruction{
 	}
 
 	@Override
-	public void write() {
+	public void write() throws Exception {
 		// TODO Auto-generated method stub
 		Register.setRegister(this.reg1, this.result);
 		

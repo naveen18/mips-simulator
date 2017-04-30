@@ -20,7 +20,7 @@ public class LI extends ItypeInstruction{
 	}
 
 	@Override
-	public void write() {
+	public void write() throws Exception {
 		// TODO Auto-generated method stub
 		Register.setRegister(this.reg1, this.imm);
 	}

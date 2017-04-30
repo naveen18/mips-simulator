@@ -21,7 +21,7 @@ public class SW extends RtypeInstruction {
 	}
 
 	@Override
-	public void write() {
+	public void write() throws Exception {
 		// TODO Auto-generated method stub
 		Memory.storeWord((int)Register.getRegister(this.reg2) + offset, (int)Register.getRegister(this.reg1));
 	}
