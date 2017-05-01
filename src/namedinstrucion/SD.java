@@ -30,6 +30,7 @@ public class SD extends RtypeInstruction{
 	public ArrayList<String> getSourceRegisters() {
 		// TODO Auto-generated method stub
 		ArrayList<String> l = new ArrayList<>();
+		l.add(this.reg1);
 		l.add(this.reg2);
 		return l;	
 	}
@@ -37,7 +38,7 @@ public class SD extends RtypeInstruction{
 	@Override
 	public String getDestinationRegister() {
 		// TODO Auto-generated method stub
-		return this.reg1;	
+		return null;	
 	}
 
 	@Override
