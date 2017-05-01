@@ -41,7 +41,7 @@ public class IssueStage {
 			return;
 		}
 		
-		if(inst.opcode == CommonConstants.JUMP){
+		if(inst.opcode.equals(CommonConstants.JUMP)){
 			// dont need to check for structure hazard in Jump
 			String destLabel = inst.getDestinationRegister();
 			int targetAddr = CodeLoader.labelMap.get(destLabel);

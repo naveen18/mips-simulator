@@ -38,7 +38,7 @@ public class J extends JtypeInstruction{
 	@Override
 	public String getDestinationRegister() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.targetAddress;
 	}
 
 }
