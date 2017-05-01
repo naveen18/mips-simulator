@@ -39,7 +39,7 @@ public class DADD extends RtypeInstruction {
 	@Override
 	public String getDestinationRegister() {
 		// TODO Auto-generated method stub
-		return this.reg3;
+		return this.reg1;
 	}
 
 	@Override
