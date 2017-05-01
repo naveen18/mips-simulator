@@ -110,6 +110,7 @@ public class InstructionLoader {
 			reg2 = operands[1];
 			imm = Integer.parseInt(operands[2]);
 			inst = new ORI(reg1, reg2, imm, opcode, CommonConstants.INTEGER);
+			break;
 		case CommonConstants.LI:
 			reg1 = operands[0];
 			imm = Integer.parseInt(operands[1]);
