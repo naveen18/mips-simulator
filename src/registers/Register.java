@@ -3,7 +3,7 @@ package registers;
 import java.util.regex.Pattern;
 
 public class Register {
-	static double[] R = new double[32];
+	static int[] R = new int[32];
 	static double[] F = new double[32];
 	static boolean[] RWriteStatus = new boolean[32];
 	static boolean[] FWriteStatus = new boolean[32];
@@ -47,7 +47,7 @@ public class Register {
 		if (!isValidRegName(name))
 			throw new Exception("Register number should be from 1 to 32");
 		if (name.charAt(0) == 'R')
-			R[num - 1] = value;
+			R[num - 1] = (int)value;
 		else
 			F[num - 1] = value;
 	}
