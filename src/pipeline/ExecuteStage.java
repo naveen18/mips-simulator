@@ -28,7 +28,7 @@ public class ExecuteStage {
 			// if the execution time is complete for an instruction then push
 			// it to writeback stage
 			if (f.currExecutionTime == f.executionTimeRequired) {
-				CodeLoader.instMap.get(i).execute();
+				CodeLoader.instMap.get(instIndex).execute();
 				execStageQueue.remove(i);
 				WriteBackStage.wbStageQueue.offer(scbdrowId);
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.EXECUTE_COLUMN, Main.clockCycle);
