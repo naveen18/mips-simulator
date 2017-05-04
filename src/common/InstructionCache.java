@@ -1,11 +1,12 @@
 package common;
 
+import util.Utilities;
+
 public class InstructionCache {
 	// initialize parameters based on config
 	static int numBlocks = AppConfig.appConfig.getNumCacheBlock();
 	static int blockSizeinWords = AppConfig.appConfig.getBlockSizeInWords();
 	static int[][] cache = new int[numBlocks][blockSizeinWords];
-	static int currentCachePointer = 0;
 
 	public static void initCache() {
 		for (int i = 0; i < numBlocks; i++) { // init cache with -1
@@ -16,7 +17,7 @@ public class InstructionCache {
 	}
 
 	public static boolean presentInCache(int address) { // check if the instruction is present in cache
-														// with the help of index
+														// with the help of index (using instruction number as instruction address)
 		for (int i = 0; i < numBlocks; i++) {
 			for (int j = 0; j < blockSizeinWords; j++) {
 				if (cache[i][j] == address)
@@ -28,10 +29,16 @@ public class InstructionCache {
 	}
 
 	private static void putInCache(int address) { // gets a complete block in cache
+		int offsetMask = Utilities.getMask(blockSizeinWords);
+		int blockMask = Utilities.getMask(numBlocks);
+		int offset  = address & offsetMask;
+		//remove the bits from address that were used to calculate offset
+		int shiftedAdd = address>>(int)(Math.log(blockSizeinWords)/Math.log(2));
+		int blockadd = blockMask & shiftedAdd;
 		for (int j = 0; j < blockSizeinWords; j++) {
-			cache[currentCachePointer][j] = address + j;
+			int index = j - offset + address;
+			cache[blockadd][j] = index;
 		}
-		currentCachePointer = (currentCachePointer + 1) % numBlocks; //evict in LRU fashion
 	}
 	
 	public static void printInstructionCache(){ // method to print cache for debugging
