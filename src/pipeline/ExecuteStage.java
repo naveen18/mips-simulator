@@ -30,6 +30,7 @@ public class ExecuteStage {
 			if (f.currExecutionTime == f.executionTimeRequired) {
 				CodeLoader.instMap.get(instIndex).execute();
 				execStageQueue.remove(i);
+				i--;// when you remove an element from the queue the elements after the removed element gets shifted by 1.
 				WriteBackStage.wbStageQueue.offer(scbdrowId);
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.EXECUTE_COLUMN, Main.clockCycle);
 			}
