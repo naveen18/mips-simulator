@@ -23,9 +23,8 @@ public class LD extends RtypeInstruction{
 	@Override
 	public void write() throws Exception {
 		// TODO Auto-generated method stub
-		double address = Register.getRegister(reg2) + offset;
-//		System.out.println(Memory.getDouble((int)address));
-		Register.setRegister(this.reg1, Memory.getDouble((int)address));
+		int address = (int)Register.getRegister(reg2) + offset;
+		Register.setRegister(this.reg1, Memory.getDouble(address));
 	}
 
 	@Override
