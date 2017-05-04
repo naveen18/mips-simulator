@@ -13,24 +13,14 @@ import registers.Register;
 
 public class WriteBackStage {
 	public static Queue<Integer> wbStageQueue = new LinkedList<Integer>();
-	public static int prevIterId = -1;
-	public static int currIterId = -1;
-	public static boolean currIdChanged = false; // to check if the currIterId
-													// is updated or not
+	public static Queue<Integer> prevIterQueue = new LinkedList<Integer>();
 
 	public static void writebackInstruction() throws Exception {
-		// in current iteration only write the finish clock cycle.
-		if (!wbStageQueue.isEmpty()) {
-			currIterId = wbStageQueue.poll();
-			int scbdrowId = currIterId;
-			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
-			CodeLoader.instMap.get(instIndex).write();
-			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Main.clockCycle);
-			currIdChanged = true;
-		}
-		if (prevIterId != -1) {
-			// put back functional unit in pool for previous iteration
-			int scbdrowId = prevIterId;
+
+		while (!prevIterQueue.isEmpty()) { // free the units and registers for
+											// previous instruction in this
+											// cycle to adjust delay
+			int scbdrowId = prevIterQueue.poll();
 			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
 			functionalunits.FuntionalUnitManager.putFunctionalUnit(CodeLoader.instMap.get(instIndex).pipelineType);
 			IssueStage.instUnitmap.remove(instIndex);
@@ -39,11 +29,19 @@ public class WriteBackStage {
 				// free the destination register for previous iteration
 				Register.unsetRegWriteStatus(inst.getDestinationRegister());
 			}
-			prevIterId = -1;
 		}
-		if (currIdChanged) {
-			prevIterId = currIterId;
+
+		while (!wbStageQueue.isEmpty()) { // mark the finish time of current
+											// instructions and put them in the
+											// prevIterQueue
+											// to free their functional units
+											// and registers in next clock cycle
+			int currIterId = wbStageQueue.poll();
+			int scbdrowId = currIterId;
+			int instIndex = Pipeline.scobdIdtoInstId.get(scbdrowId);
+			CodeLoader.instMap.get(instIndex).write();
+			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.WRITEBACK_COLUMN, Main.clockCycle);
+			prevIterQueue.add(scbdrowId);
 		}
-		currIdChanged = false;
 	}
 }
