@@ -58,10 +58,9 @@ public class DecodeStage {
 				return;
 			}
 			decStageQueue.remove(i);
+			i--; // when you remove an element from the queue the elements after the removed element gets shifted by 1.
 			ExecuteStage.execStageQueue.add(scbdrowId);
 			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.DECODE_COLUMN, Main.clockCycle);
-			// decoded one instruction, done for this clock cycle
-			break;
 		}	
 		
 		//#####  check with prof if we need to copy source register values to stage buffer
