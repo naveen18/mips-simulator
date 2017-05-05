@@ -1,88 +1,34 @@
 package main;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Map.Entry;
 
 import common.AppConfig;
 import common.CodeLoader;
-import common.Instruction;
 import common.InstructionCache;
 import common.Memory;
-import common.constants.CommonConstants;
 import functionalunits.FuntionalUnitManager;
-import pipeline.FetchStage;
-import pipeline.IssueStage;
 import pipeline.Pipeline;
-import registers.Register;
-import util.PrintMethods;
+import util.Utilities;
 
 public class Main {
 	public static int clockCycle = 0;
 	public static void main(String args[]) throws Exception {
-		AppConfig.updateConfig("/Users/naveen/Desktop/Architecture/config.txt");
-		CodeLoader.loadCode("/Users/naveen/Desktop/Architecture/code.txt");
+		if(args.length < 4){
+			throw new Exception("Number of arguements can not be less than 4");
+		}
+		System.out.println("mail file begin");
+		AppConfig.updateConfig(args[2]);
+		CodeLoader.loadCode(args[0]);
 		InstructionCache.initCache();
 		FuntionalUnitManager.initFuntionalUnits();
 		try {
-			Memory.readMemory("/Users/naveen/Desktop/Architecture/data.txt");
+			Memory.readMemory(args[1]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		Pipeline.startPipeLine();
-		PrintMethods.printScoreBoard();
-		storeScoreBoard();
-	}
-	
-	public static void printHeaderstoFile(OutputStream os) throws IOException{
-		os.write("Instruction".getBytes());
-		printSpacetoFile(os, 13);
-		os.write("Fetch".getBytes());
-		printSpacetoFile(os, 2);
-		os.write("Issue".getBytes());
-		printSpacetoFile(os, 2);
-		os.write("Read".getBytes());
-		printSpacetoFile(os, 3);
-		os.write("Exec".getBytes());
-		printSpacetoFile(os, 3);
-		os.write("Write".getBytes());
-		printSpacetoFile(os, 3);
-		os.write("RAW".getBytes());
-		printSpacetoFile(os, 3);
-		os.write("WAW".getBytes());
-		printSpacetoFile(os, 3);
-		os.write("Struct".getBytes());
-		os.write("\n".getBytes());
-		os.write("\n".getBytes());
-	}
-	
-	public static void printSpacetoFile(OutputStream os, int n) throws IOException{
-		for(int i=0; i<n; i++) os.write(" ".getBytes());
-	}
-	
-	public static void storeScoreBoard() throws IOException{
-		OutputStream os = new FileOutputStream("/Users/naveen/Desktop/Architecture/myresult.txt");
-		printHeaderstoFile(os);
-		for(int i=0; i<2; i++){
-			String inst = CodeLoader.programStore.get(i);
-			int lenCode = inst.length();
-			//System.out.printf("%s", inst);
-			printSpacetoFile(os, 20-lenCode);
-			for(int j=0; j<Pipeline.scoreboard.get(i).size(); j++){
-				printSpacetoFile(os, 7 - String.valueOf(Pipeline.scoreboard.get(i).get(j)).length());
-				if(j < 5){
-					os.write(Pipeline.scoreboard.get(i).get(j).byteValue());
-				} else{
-					if(Pipeline.scoreboard.get(i).get(j) == 1) os.write((byte)'Y');
-					else os.write((byte)'N');
-				}
-			}
-			os.write("\n".getBytes());;
-		}
+		Utilities.printScoreBoard(args[3]);
+		Utilities.storeScoreBoard(args[3]);
 	}
 }
