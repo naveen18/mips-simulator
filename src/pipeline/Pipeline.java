@@ -10,7 +10,6 @@ import common.Instruction;
 import common.InstructionCache;
 import common.constants.CommonConstants;
 import main.Main;
-import util.PrintMethods;
 
 public class Pipeline {
 	public static HashMap<Integer, Integer> scobdIdtoInstId = new HashMap<>();
