@@ -35,7 +35,7 @@ public class IssueStage {
 		if(inst == null || inst.opcode.equals(CommonConstants.HLT)){
 			IssueStage.issueStageQueue.clear();
 			IssueStage.busy = false;
-			if(instIndex < CodeLoader.programStore.size() - 1){
+			if(instIndex < CodeLoader.programStore.size() - 1 && DecodeStage.decStageQueue.isEmpty()){
 				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
 			}
 			return;

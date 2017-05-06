@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
+import cache.InstructionCache;
 import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
@@ -14,6 +15,7 @@ import registers.Register;
 
 public class DecodeStage {
 	public static List<Integer>  decStageQueue = new LinkedList<Integer>();
+	public static int branchAddress = -1;
 	private boolean busy;
 	
 	public boolean isBusy() {
@@ -44,7 +46,8 @@ public class DecodeStage {
 					// dont check structure hazard for BNE and BEQ
 					int targetAddress = getTargetAddress(inst);
 					// changed program counter in isBranchTaken function
-					Pipeline.instIndex = targetAddress;
+					DecodeStage.branchAddress = targetAddress;
+					//Pipeline.instIndex = targetAddress;
 					IssueStage.issueStageQueue.clear();
 					DecodeStage.decStageQueue.clear();
 					IssueStage.busy = false;

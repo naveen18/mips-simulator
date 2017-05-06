@@ -22,30 +22,35 @@ public class FetchStage {
 	static int fetchTime;
 	
 	public static void fetchInstruction(int instIndex) {
-		if(instIndex > CodeLoader.programStore.size()-1)
+		if(instIndex > CodeLoader.programStore.size() - 1)
 			return;
 		if(Pipeline.oneCycleDelay == true){
 			Pipeline.oneCycleDelay = false;
 			return;
-		}
+		}	
 		if(AppConfig.appConfig.isCacheOn){
-			if (!Pipeline.isBusBusy && !InstructionCache.presentInCache(instIndex)) {
-				Pipeline.isBusBusy = true;
-				fetchTime = Main.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
-				InstructionCache.numIcacheMiss++;
-			}
-			if (Main.clockCycle < fetchTime){
-				return;
+			if (!InstructionCache.presentInCache(instIndex)) {
+				if((IcacheProcess.IcacheProcessOn)){
+					return;
+				} else if(DcacheProcess.startedAt == Main.clockCycle ||  DcacheProcess.startedAt == -1){
+					DcacheProcess.DcacheProcessOn = false;
+					IcacheProcess.IcacheProcessOn = true;
+					IcacheProcess.address = instIndex;
+					IcacheProcess.cycleCount = 12;
+					Pipeline.owner = CommonConstants.ICACHE;
+					InstructionCache.numIcacheMiss++;
+					return;
+				} else {
+					//System.out.println("Exceptional case for " + instIndex);
+				}
 			}
 		}
-		
-		Pipeline.isBusBusy = false;
 		
 		if(IssueStage.busy){
 			return;
 		}
-		
-//		System.out.println("fetching " + instIndex);
+			
+		//System.out.println("fetching " + instIndex + " at " + Main.clockCycle);
 		Pipeline.scoreboard.add(Pipeline.scoreboardRowId, new ArrayList<Integer>());
 		// filling 8 dummy integers
 		for(int i=0; i<8; i++) Pipeline.scoreboard.get(Pipeline.scoreboardRowId).add(0);
@@ -54,7 +59,14 @@ public class FetchStage {
 		IssueStage.busy=true;
 		Pipeline.scoreboard.get(Pipeline.scoreboardRowId).set(CommonConstants.FETCH_COLUMN, Main.clockCycle);
 		Pipeline.scoreboardRowId++;
+		//System.out.println(instIndex);
 		Pipeline.instIndex++;
+		
+		if(DecodeStage.branchAddress != -1){ // need to branch at branchAddress in next clock cycle
+			Pipeline.instIndex = DecodeStage.branchAddress;
+			DecodeStage.branchAddress = -1;
+			return;
+		}
 	}
 
 }
