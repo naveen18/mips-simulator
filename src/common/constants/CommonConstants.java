@@ -45,7 +45,7 @@ public class CommonConstants {
 	public static final String LOADSTORE = "Load Store pipleline";
 	public static final String UNKNOWN_UNIT = "Unknown pipleline";
 
-	
+	public static final String DCACHE = "D-Cache";
 
 	public static final String R1 = "R1";
 	public static final String R2 = "R2";
