@@ -41,8 +41,7 @@ public class CodeLoader {
 		String opcode = null;
 		int shift = 0;
 		if (split1.length > 1) {
-			labelMap.put(split1[0], count);
-			//inst.setLabel(split1[0]);
+			labelMap.put(split1[0].trim(), count);
 			shift = 1;
 		}
 		String[] split2 = split1[shift].trim().split(" ", 2);
@@ -50,7 +49,7 @@ public class CodeLoader {
 		if (split2.length >= 2) {
 			String[] operands = split2[1].split(" ");
 			for (int i = 0; i < operands.length; i++)
-				operands[i] = operands[i].replaceAll(",", "");
+				operands[i] = operands[i].replaceAll(",", "").trim();
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, operands);
 		} else {
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, null);
