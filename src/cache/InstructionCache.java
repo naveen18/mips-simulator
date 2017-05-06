@@ -22,7 +22,6 @@ public class InstructionCache {
 
 	public static boolean presentInCache(int address) { // check if the instruction is present in cache
 														// with the help of index (using instruction number as instruction address)
-		numIcacheRequests++;
 		for (int i = 0; i < numBlocks; i++) {
 			for (int j = 0; j < blockSizeinWords; j++) {
 				if (cache[i][j] == address){
@@ -30,11 +29,10 @@ public class InstructionCache {
 				}
 			}
 		}
-		putInCache(address);  // get from main memory if cache miss
 		return false;
 	}
 
-	private static void putInCache(int address) { // gets a complete block in cache
+	public static void putInCache(int address) { // gets a complete block in cache
 		int offsetMask = Utilities.getMask(blockSizeinWords);
 		int blockMask = Utilities.getMask(numBlocks);
 		int offset  = address & offsetMask;
@@ -50,7 +48,7 @@ public class InstructionCache {
 	public static void printInstructionCache(){ // method to print cache for debugging
 		for (int i = 0; i < numBlocks; i++) {
 			for (int j = 0; j < blockSizeinWords; j++) {
-				System.out.println(cache[i][j] + " ");
+				System.out.print(cache[i][j] + " ");
 			}
 			System.out.println();
 		}
