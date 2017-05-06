@@ -22,8 +22,11 @@ public class FetchStage {
 	static int fetchTime;
 	
 	public static void fetchInstruction(int instIndex) {
-		if(instIndex > CodeLoader.programStore.size() - 1)
+		if(instIndex > CodeLoader.programStore.size() - 1 && DecodeStage.branchAddress == -1)
 			return;
+		if(instIndex == CodeLoader.programStore.size()){
+			instIndex = DecodeStage.branchAddress;
+		}
 		if(Pipeline.oneCycleDelay == true){
 			Pipeline.oneCycleDelay = false;
 			return;
