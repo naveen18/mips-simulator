@@ -8,6 +8,9 @@ public class DataCache {
 
 	public static DataCacheSet[] dcache = new DataCacheSet[2];
 	public static HashMap<Integer, Integer> addrToVal = new HashMap<>();
+	public static int numDcacheRequests = 0;
+	public static int numDcacheMiss = 0;
+	public static int numDcacheHits = 0;
 	
 	public static void initDataCache(){
 		dcache[0] = new DataCacheSet();
@@ -19,7 +22,7 @@ public class DataCache {
 	}
 
 	public static boolean isHit(int address) {
-		System.out.println("call for address " + address);
+		//System.out.println("call for address " + address);
 		int set  = getSetforAddress(address);
 		for (int i = 0; i < 2; i++) { // check if the address lies in baseAddress of block and baseAddress + 15
 			for(int j=0; j<4; j++){
@@ -108,6 +111,15 @@ public class DataCache {
 		return (address>>4)<<4;
 	}
 	
+	public static boolean isEvictionRequired (int address) {
+		int set = getSetforAddress(address);
+		int evicCandidate = dcache[set].evictionCandidate;
+		if(dcache[set].blocks[evicCandidate].isDirty){
+			return true;
+		}
+		return false;
+	}
+	
 	public static void printDcache() {
 		for (int i = 0; i < 2; i++) {
 			System.out.println("Set " + i);
@@ -116,6 +128,17 @@ public class DataCache {
 					System.out.println("address " + dcache[i].blocks[j].words[k] + " value " + addrToVal.get(dcache[i].blocks[j].words[k]));
 				}
 				System.out.println();
+			}
+		}
+	}
+	
+	public static void setDirtyForAddress(int address){
+		int set = getSetforAddress(address);
+		for (int i = 0; i < 2; i++) { // check if the address lies in baseAddress of block and baseAddress + 15
+			for(int j=0; j<4; j++){
+				if (dcache[set].blocks[i].words[j] == address) {
+					dcache[set].blocks[i].isDirty = true;
+				}
 			}
 		}
 	}
