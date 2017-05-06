@@ -1,16 +1,9 @@
 package common;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.ByteBuffer;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.security.AllPermission;
 import java.util.TreeMap;
 import java.io.IOException;
-import java.lang.StringBuilder;
 
 public class Memory {
 	private static TreeMap<Integer, Integer> memory  = new TreeMap<>();

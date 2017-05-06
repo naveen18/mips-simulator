@@ -2,14 +2,10 @@ package pipeline;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 
-import cache.InstructionCache;
 import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
-import functionalunits.FunctionalUnit;
 import main.Main;
 import registers.Register;
 

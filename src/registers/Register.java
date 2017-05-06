@@ -1,7 +1,5 @@
 package registers;
 
-import java.util.regex.Pattern;
-
 public class Register {
 	static int[] R = new int[32];
 	static double[] F = new double[32];

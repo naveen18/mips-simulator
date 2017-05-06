@@ -3,7 +3,6 @@ package pipeline;
 import cache.DataCache;
 import common.Instruction;
 import common.constants.CommonConstants;
-import main.Main;
 
 public class DcacheProcess {
 	static int cycleCount = -1;

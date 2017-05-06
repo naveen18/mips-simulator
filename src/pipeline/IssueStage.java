@@ -1,6 +1,5 @@
 package pipeline;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -8,12 +7,10 @@ import java.util.Queue;
 
 import pipeline.Pipeline;
 
-import java.util.Map.Entry;
 
 import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
-import namedinstrucion.LI;
 import registers.Register;
 import functionalunits.FunctionalUnit;
 import functionalunits.FuntionalUnitManager;

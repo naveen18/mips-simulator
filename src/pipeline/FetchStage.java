@@ -1,18 +1,10 @@
 package pipeline;
 
-import java.time.Clock;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
-import java.util.Queue;
 
 import common.AppConfig;
 import common.CodeLoader;
-import common.Instruction;
 import cache.InstructionCache;
 import common.constants.CommonConstants;
 import main.Main;

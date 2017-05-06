@@ -2,7 +2,6 @@ package namedinstrucion;
 
 import java.util.ArrayList;
 
-import common.Memory;
 import instructiontype.ItypeInstruction;
 import registers.Register;
 

@@ -1,6 +1,5 @@
 package pipeline;
 
-import cache.DataCache;
 import cache.InstructionCache;
 import common.constants.CommonConstants;
 

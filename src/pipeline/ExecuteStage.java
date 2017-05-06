@@ -1,25 +1,14 @@
 package pipeline;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Queue;
 
-import javax.xml.crypto.Data;
-
-import cache.DataCache;
-import cache.DataCacheSet;
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;
-import common.Memory;
 import common.constants.CommonConstants;
 import functionalunits.FunctionalUnit;
 import main.Main;
-import namedinstrucion.LW;
-import registers.Register;
-import util.Utilities;
 
 public class ExecuteStage {
 	public static List<Integer> execStageQueue = new LinkedList<Integer>();

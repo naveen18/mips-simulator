@@ -6,9 +6,7 @@ import java.util.Queue;
 import common.CodeLoader;
 import common.Instruction;
 import common.constants.CommonConstants;
-import functionalunits.*;
 import main.Main;
-import pipeline.FetchStage;
 import registers.Register;
 
 public class WriteBackStage {
