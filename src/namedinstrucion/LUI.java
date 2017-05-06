@@ -22,7 +22,8 @@ public class LUI extends ItypeInstruction {
 	@Override
 	public void write() throws Exception {
 		// TODO Auto-generated method stub
-		Register.setRegister(this.reg1, this.imm);
+		int shiftedImmidiate = this.imm<<16;
+		Register.setRegister(this.reg1, shiftedImmidiate);
 	}
 
 	@Override
