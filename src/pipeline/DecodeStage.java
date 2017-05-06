@@ -42,7 +42,7 @@ public class DecodeStage {
 			}
 			
 			if (inst.opcode.equals(CommonConstants.BEQ) || inst.opcode.equals(CommonConstants.BNE)) {
-				if (isBranchTaken(inst)) { 
+				if (isBranchTaken(inst)) {
 					// dont check structure hazard for BNE and BEQ
 					int targetAddress = getTargetAddress(inst);
 					// changed program counter in isBranchTaken function

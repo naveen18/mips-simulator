@@ -16,14 +16,14 @@ public class Pipeline {
 	public static boolean oneCycleDelay = false;
 	public static boolean halted = false;
 	public static String owner = null;
+	
 	public static void startPipeLine() throws Exception {
-		while(done!=1) {
+		while (done != 1) {
 			Main.clockCycle++;
-			if(AppConfig.appConfig.isCacheOn){
-				if(DcacheProcess.DcacheProcessOn){
+			if (AppConfig.appConfig.isCacheOn) {
+				if (DcacheProcess.DcacheProcessOn) {
 					DcacheProcess.run();
-				}
-				else if(IcacheProcess.IcacheProcessOn){
+				} else if (IcacheProcess.IcacheProcessOn) {
 					IcacheProcess.run();
 				}
 			}
