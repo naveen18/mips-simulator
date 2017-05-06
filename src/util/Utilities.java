@@ -6,13 +6,18 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
+import cache.DataCache;
 import cache.InstructionCache;
 import common.AppConfig;
 import common.CodeLoader;
+import common.Instruction;
 import pipeline.Pipeline;
+import registers.Register;
 
 public class Utilities {
+	
 	public static int getMask(int num) {
 		int count = 0;
 		int myNum = 0;
@@ -22,6 +27,25 @@ public class Utilities {
 		}
 		return myNum - 1;
 	}
+	
+	public static int getAddressOfLoad(Instruction inst) throws Exception {
+		int offset = inst.getImmediate();
+		ArrayList<String> l = inst.getSourceRegisters();
+		String reg = l.get(0);
+		int base = (int) Register.getRegister(reg);
+		int address = base + offset;
+		return address;
+	}
+	
+	public static int getAddressOfStore(Instruction inst) throws Exception {
+		int offset = inst.getImmediate();
+		ArrayList<String> l = inst.getSourceRegisters();
+		String reg = l.get(1);
+		int base = (int) Register.getRegister(reg);
+		int address = base + offset;
+		return address;
+	}
+	
 
 	public static void storeScoreBoard(String path) throws IOException {
 		BufferedWriter scoreboardWriter = null;
@@ -58,6 +82,14 @@ public class Utilities {
 			scoreboardWriter.write(icacheReq);
 			scoreboardWriter.newLine();
 			scoreboardWriter.write(icacheHits);
+			
+			scoreboardWriter.newLine();
+			scoreboardWriter.newLine();
+			String dcacheReq = "Total number of access requests for data cache:" + DataCache.numDcacheRequests;
+			String dcacheHits = "Number of instruction cache hits:" + (DataCache.numDcacheRequests - DataCache.numDcacheMiss);
+			scoreboardWriter.write(dcacheReq);
+			scoreboardWriter.newLine();
+			scoreboardWriter.write(dcacheHits);
 		}
 		scoreboardWriter.close();
 	}
