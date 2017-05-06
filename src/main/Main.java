@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import common.AppConfig;
 import common.CodeLoader;
+import cache.DataCache;
 import cache.InstructionCache;
 import common.Memory;
 import functionalunits.FuntionalUnitManager;
@@ -20,6 +21,7 @@ public class Main {
 		AppConfig.updateConfig(args[2]);
 		CodeLoader.loadCode(args[0]);
 		InstructionCache.initCache();
+		DataCache.initDataCache();
 		FuntionalUnitManager.initFuntionalUnits();
 		try {
 			Memory.readMemory(args[1]);
