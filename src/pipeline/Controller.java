@@ -10,7 +10,6 @@ public class Controller {
 	
 	public static boolean controlLoadDouble(Instruction inst, int scbdrowId) throws Exception{
 		int address = Utilities.getAddressOfLoad(inst);
-		System.out.println(scbdrowId + " need " + address + " at " + Main.clockCycle);
 		if(DataCache.isHit(address) && DataCache.isHit(address + 4)){
 			//DataCache.printDcache();
 			//System.out.println( " hit for " + inst.opcode + " " + inst.getDestinationRegister() + " " + inst.getSourceRegisters() + " " +inst.getImmediate());
