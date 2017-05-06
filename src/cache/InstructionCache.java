@@ -1,5 +1,6 @@
-package common;
+package cache;
 
+import common.AppConfig;
 import util.Utilities;
 
 public class InstructionCache {
@@ -7,6 +8,9 @@ public class InstructionCache {
 	static int numBlocks = AppConfig.appConfig.getNumCacheBlock();
 	static int blockSizeinWords = AppConfig.appConfig.getBlockSizeInWords();
 	static int[][] cache = new int[numBlocks][blockSizeinWords];
+	public static int numIcacheRequests = 0;
+	public static int numIcacheMiss = 0;
+	public static int numIcacheHits = 0;
 
 	public static void initCache() {
 		for (int i = 0; i < numBlocks; i++) { // init cache with -1
@@ -18,10 +22,12 @@ public class InstructionCache {
 
 	public static boolean presentInCache(int address) { // check if the instruction is present in cache
 														// with the help of index (using instruction number as instruction address)
+		numIcacheRequests++;
 		for (int i = 0; i < numBlocks; i++) {
 			for (int j = 0; j < blockSizeinWords; j++) {
-				if (cache[i][j] == address)
+				if (cache[i][j] == address){
 					return true;
+				}
 			}
 		}
 		putInCache(address);  // get from main memory if cache miss
@@ -33,8 +39,8 @@ public class InstructionCache {
 		int blockMask = Utilities.getMask(numBlocks);
 		int offset  = address & offsetMask;
 		//remove the bits from address that were used to calculate offset
-		int shiftedAdd = address>>(int)(Math.log(blockSizeinWords)/Math.log(2));
-		int blockadd = blockMask & shiftedAdd;
+		int shiftedAddr = address>>(int)(Math.log(blockSizeinWords)/Math.log(2));
+		int blockadd = blockMask & shiftedAddr;
 		for (int j = 0; j < blockSizeinWords; j++) {
 			int index = j - offset + address;
 			cache[blockadd][j] = index;
