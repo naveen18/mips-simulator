@@ -44,7 +44,7 @@ public class SD extends RtypeInstruction{
 	@Override
 	public Integer getImmediate() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.offset;
 	}
 
 }

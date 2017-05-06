@@ -32,7 +32,7 @@ public class LD extends RtypeInstruction{
 		// TODO Auto-generated method stub
 		ArrayList<String> l = new ArrayList<>();
 		l.add(this.reg2);
-		return l;	
+		return l;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class LD extends RtypeInstruction{
 	@Override
 	public Integer getImmediate() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.offset;
 	}
 
 }
