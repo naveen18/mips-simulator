@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+
+import cache.InstructionCache;
+import common.AppConfig;
 import common.CodeLoader;
 import pipeline.Pipeline;
 
@@ -45,6 +48,16 @@ public class Utilities {
 			String line = String.format(instFormat1, inst, fetch, issue, read, exec, write, raw, waw, struct);
 			scoreboardWriter.write(line);
 			scoreboardWriter.newLine();
+		}
+		
+		if(AppConfig.appConfig.isCacheOn){
+			scoreboardWriter.newLine();
+			InstructionCache.numIcacheRequests = Pipeline.scoreboard.size();
+			String icacheReq = "Total number of access requests for instruction cache:" + InstructionCache.numIcacheRequests;
+			String icacheHits = "Number of instruction cache hits:" + (InstructionCache.numIcacheRequests - InstructionCache.numIcacheMiss);
+			scoreboardWriter.write(icacheReq);
+			scoreboardWriter.newLine();
+			scoreboardWriter.write(icacheHits);
 		}
 		scoreboardWriter.close();
 	}

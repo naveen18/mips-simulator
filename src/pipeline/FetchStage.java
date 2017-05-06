@@ -13,7 +13,7 @@ import java.util.Queue;
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;
-import common.InstructionCache;
+import cache.InstructionCache;
 import common.constants.CommonConstants;
 import main.Main;
 
@@ -29,11 +29,17 @@ public class FetchStage {
 			return;
 		}
 		if(AppConfig.appConfig.isCacheOn){
-			if (!InstructionCache.presentInCache(instIndex))
+			if (!Pipeline.isBusBusy && !InstructionCache.presentInCache(instIndex)) {
+				Pipeline.isBusBusy = true;
 				fetchTime = Main.clockCycle + AppConfig.appConfig.getBlockSizeInWords() * CommonConstants.cacheMissPenalty;
-			if (Main.clockCycle < fetchTime)
+				InstructionCache.numIcacheMiss++;
+			}
+			if (Main.clockCycle < fetchTime){
 				return;
+			}
 		}
+		
+		Pipeline.isBusBusy = false;
 		
 		if(IssueStage.busy){
 			return;

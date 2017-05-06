@@ -4,11 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import common.AppConfig;
-import common.CodeLoader;
-import common.Instruction;
-import common.InstructionCache;
-import common.constants.CommonConstants;
 import main.Main;
 
 public class Pipeline {
@@ -19,6 +14,7 @@ public class Pipeline {
 	public static int done = 0;
 	public static boolean oneCycleDelay = false;
 	public static boolean halted = false;
+	public static boolean isBusBusy = false;
 	public static void startPipeLine() throws Exception {
 		while(done!=1) {
 			Main.clockCycle++;

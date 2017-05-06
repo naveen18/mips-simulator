@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import common.AppConfig;
 import common.CodeLoader;
-import common.InstructionCache;
+import cache.InstructionCache;
 import common.Memory;
 import functionalunits.FuntionalUnitManager;
 import pipeline.Pipeline;
