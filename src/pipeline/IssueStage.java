@@ -41,6 +41,9 @@ public class IssueStage {
 		if(inst.opcode.equals(CommonConstants.JUMP)){
 			// dont need to check for structure hazard in Jump
 			String destLabel = inst.getDestinationRegister();
+			if(!CodeLoader.labelMap.containsKey(destLabel)){
+				throw new Exception(destLabel + " is incorrect target label for branching ");
+			}
 			int targetAddr = CodeLoader.labelMap.get(destLabel);
 			Pipeline.instIndex = targetAddr;
 			Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
