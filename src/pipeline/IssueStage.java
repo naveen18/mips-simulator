@@ -32,9 +32,9 @@ public class IssueStage {
 		if(inst == null || inst.opcode.equals(CommonConstants.HLT)){
 			IssueStage.issueStageQueue.clear();
 			IssueStage.busy = false;
-			if(instIndex < CodeLoader.programStore.size() - 1 && DecodeStage.decStageQueue.isEmpty()){
-				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
-			}
+//			if(instIndex < CodeLoader.programStore.size() - 1 && DecodeStage.decStageQueue.isEmpty()){
+//				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
+//			}
 			return;
 		}
 		
@@ -98,6 +98,7 @@ public class IssueStage {
 		if(inst.opcode.equals(CommonConstants.BNE) || inst.opcode.equals(CommonConstants.BEQ)){
 			// BEQ or BNE issued, need to stall the pipeline until condition is resolved
 			issueStageQueue.clear();
+			Pipeline.branchIssued = true;
 		}
 
 		Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);

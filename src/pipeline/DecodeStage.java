@@ -54,6 +54,7 @@ public class DecodeStage {
 					Pipeline.oneCycleDelay = true;
 					decStageQueue.remove(i);
 				}
+				Pipeline.branchIssued = false;
 				return;
 			}
 			decStageQueue.remove(i);

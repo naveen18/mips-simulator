@@ -16,6 +16,7 @@ public class Pipeline {
 	public static boolean oneCycleDelay = false;
 	public static boolean halted = false;
 	public static String owner = null;
+	public static boolean branchIssued = false;
 	
 	public static void startPipeLine() throws Exception {
 		while (done != 1) {
