@@ -3,6 +3,7 @@ package pipeline;
 import java.util.LinkedList;
 import java.util.List;
 
+import cache.DataCache;
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;

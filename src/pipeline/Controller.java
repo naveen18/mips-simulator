@@ -6,8 +6,7 @@ import common.constants.CommonConstants;
 import main.Main;
 import util.Utilities;
 
-public class Controller {
-	
+public class Controller {	
 	public static boolean controlLoadDouble(Instruction inst, int scbdrowId) throws Exception{
 		int address = Utilities.getAddressOfLoad(inst);
 		if(DataCache.isHit(address) && DataCache.isHit(address + 4)){
