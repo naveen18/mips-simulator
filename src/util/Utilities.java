@@ -13,6 +13,7 @@ import cache.InstructionCache;
 import common.AppConfig;
 import common.CodeLoader;
 import common.Instruction;
+import common.constants.CommonConstants;
 import pipeline.Pipeline;
 import registers.Register;
 
@@ -46,7 +47,10 @@ public class Utilities {
 		return address;
 	}
 	
-
+	public static boolean isLdorSd(Instruction inst){
+		return (inst.opcode.equals(CommonConstants.LD) || inst.opcode.equals(CommonConstants.SD));
+	}
+	
 	public static void storeScoreBoard(String path) throws IOException {
 		BufferedWriter scoreboardWriter = null;
 		final String instFormat = " %-25s  %-4s  %-4s  %-6s  %-6s  %-5s  %-5s  %-4s %-6s";

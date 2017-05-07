@@ -7,6 +7,11 @@ import main.Main;
 import util.Utilities;
 
 public class Controller {	
+
+	public static boolean iCacheHappended = false;
+	public static boolean firstWordMiss = false;
+	public static boolean secondWordMiss = false;
+	
 	public static boolean controlLoadDouble(Instruction inst, int scbdrowId) throws Exception{
 		int address = Utilities.getAddressOfLoad(inst);
 		if(DataCache.isHit(address) && DataCache.isHit(address + 4)){
@@ -14,12 +19,17 @@ public class Controller {
 			//System.out.println( " hit for " + inst.opcode + " " + inst.getDestinationRegister() + " " + inst.getSourceRegisters() + " " +inst.getImmediate());
 			return true;
 		}
-		else if(DcacheProcess.DcacheProcessOn || IcacheProcess.IcacheProcessOn){
+		else if(DcacheProcess.DcacheProcessOn){
+			return false;
+		}
+		else if(IcacheProcess.IcacheProcessOn){
+			iCacheHappended = true;
 			return false;
 		}
 		else {
 			if(!DataCache.isHit(address)) {
 //				System.out.println("call for address" + address + " at " + Main.clockCycle);
+				firstWordMiss = true;
 				DcacheProcess.DcacheProcessOn = true;
 				Pipeline.owner = CommonConstants.DCACHE;
 				DcacheProcess.startedAt = Main.clockCycle;
@@ -30,6 +40,7 @@ public class Controller {
 					DcacheProcess.cycleCount = 12;
 				}
 			} else if(!DataCache.isHit(address + 4)){
+				secondWordMiss = true;
 				address = address + 4; // next word for double
 //				System.out.println("call for address" + address + " at " + Main.clockCycle);
 				DcacheProcess.DcacheProcessOn = true;
@@ -83,12 +94,17 @@ public class Controller {
 			//System.out.println( " hit for " + inst.opcode + " " + inst.getDestinationRegister() + " " + inst.getSourceRegisters() + " " +inst.getImmediate());
 			return true;
 		}
-		else if(DcacheProcess.DcacheProcessOn || IcacheProcess.IcacheProcessOn){
+		else if(DcacheProcess.DcacheProcessOn){
+			return false;
+		}
+		else if(IcacheProcess.IcacheProcessOn){
+			iCacheHappended = true;
 			return false;
 		}
 		else {
 			if(!DataCache.isHit(address)) {
 //				System.out.println("call for address" + address + " at " + Main.clockCycle);
+				firstWordMiss = true;
 				DcacheProcess.DcacheProcessOn = true;
 				Pipeline.owner = CommonConstants.DCACHE;
 				DcacheProcess.startedAt = Main.clockCycle;
@@ -99,6 +115,7 @@ public class Controller {
 					DcacheProcess.cycleCount = 12;
 				}
 			} else if(!DataCache.isHit(address + 4)){
+				secondWordMiss = true;
 				address = address + 4; // next word for double
 //				System.out.println("call for address" + address + " at " + Main.clockCycle);
 				DcacheProcess.DcacheProcessOn = true;

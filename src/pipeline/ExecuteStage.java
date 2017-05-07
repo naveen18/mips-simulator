@@ -10,6 +10,7 @@ import common.Instruction;
 import common.constants.CommonConstants;
 import functionalunits.FunctionalUnit;
 import main.Main;
+import util.Utilities;
 
 public class ExecuteStage {
 	public static List<Integer> execStageQueue = new LinkedList<Integer>();
@@ -27,13 +28,24 @@ public class ExecuteStage {
 			if (AppConfig.appConfig.isCacheOn) {
 				if (handleLoadStore(inst, scbdrowId)) {
 					f.currExecutionTime++;
+				} else{
+					continue;
 				}
 			} else {
 				f.currExecutionTime++;
 			}
+			if (busSyncCheck(inst)) { // very imp edge case to check if LD or SD finished their first exec cycle while waiting for icache 
+				f.executionTimeRequired--;
+			}
 			// if the execution time is complete for an instruction then push
 		    // it to writeback stage
 			if (f.currExecutionTime == f.executionTimeRequired) {
+				if(Utilities.isLdorSd(inst)){
+					//reset the parameters used for synch logic
+					Controller.firstWordMiss = false;
+					Controller.secondWordMiss = false;
+					Controller.iCacheHappended = false;
+				}
 				DcacheProcess.countDcacheRequests(inst);
 				CodeLoader.instMap.get(instIndex).execute();
 				execStageQueue.remove(i);
@@ -59,4 +71,11 @@ public class ExecuteStage {
 		}
 	}
 	
+	public static boolean busSyncCheck(Instruction inst){
+		return Utilities.isLdorSd(inst) && overlapIcacheDcacheCondition(inst);
+	}
+	
+	public static boolean overlapIcacheDcacheCondition(Instruction inst){
+		return (!Controller.firstWordMiss && Controller.secondWordMiss && Controller.iCacheHappended);
+	}
 }

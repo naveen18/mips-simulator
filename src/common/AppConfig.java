@@ -1,13 +1,9 @@
 package common;
 
-import java.awt.datatransfer.StringSelection;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashMap;
 
-import common.constants.CommonConstants;
 
 public class AppConfig {
 
@@ -31,7 +27,7 @@ public class AppConfig {
 	private int numFpMultiplierCycleCount = 0;
 	private int numFpDividerCycleCount = 0;
 	private int blockSizeInWords = 0;
-	public boolean isCacheOn = false;
+	public boolean isCacheOn = true;
 	
 
 	public int getNumFpAdderUnits() {
