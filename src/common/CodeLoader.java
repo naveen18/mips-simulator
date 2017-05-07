@@ -42,10 +42,11 @@ public class CodeLoader {
 			labelMap.put(split1[0].trim(), count);
 			shift = 1;
 		}
-		String[] split2 = split1[shift].trim().split(" ", 2);
+		String partWithoutLabel = split1[shift].trim();
+		String[] split2 = partWithoutLabel.split(" ", 2);
 		opcode = split2[0].trim();
 		if (split2.length >= 2) {
-			String[] operands = split2[1].split(" ");
+			String[] operands = split2[1].trim().split(" ");
 			for (int i = 0; i < operands.length; i++)
 				operands[i] = operands[i].replaceAll(",", "").trim();
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, operands);
