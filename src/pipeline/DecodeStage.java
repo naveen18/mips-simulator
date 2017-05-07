@@ -91,9 +91,12 @@ public class DecodeStage {
 		return false;	
 	}
 	
-	public static int getTargetAddress(Instruction inst) {
+	public static int getTargetAddress(Instruction inst) throws Exception {
 		// get target address for branching instruction
 		String destLabel = inst.getDestinationRegister();
+		if(!CodeLoader.labelMap.containsKey(destLabel)){
+			throw new Exception(destLabel + " is incorrect target label for branching ");
+		}
 		int targetAddr = CodeLoader.labelMap.get(destLabel);
 		return targetAddr;
 	}
