@@ -40,27 +40,27 @@ public class InstructionLoader {
 		case CommonConstants.LW: // add logic to handle the case without () i.e
 									// memory offer
 			reg1 = operands[0];
-			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')));
-			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')'));
+			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')).trim());
+			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')')).trim();
 			inst = new LW(reg1, reg2, offset, opcode, CommonConstants.LOADSTORE);
 			break;
 		case CommonConstants.SW: // add logic to handle the case without () i.e
 									// memory offer
 			reg1 = operands[0];
-			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')));
-			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')'));
+			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')).trim());
+			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')')).trim();
 			inst = new SW(reg1, reg2, offset, opcode, CommonConstants.LOADSTORE);
 			break;
 		case CommonConstants.LD:
 			reg1 = operands[0];
-			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')));
-			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')'));
+			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')).trim());
+			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')')).trim();
 			inst = new LD(reg1, reg2, offset, opcode, CommonConstants.LOADSTORE);
 			break;
 		case CommonConstants.SD:
 			reg1 = operands[0];
-			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')));
-			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')'));
+			offset = Integer.parseInt(operands[1].substring(0, operands[1].indexOf('(')).trim());
+			reg2 = operands[1].substring(operands[1].indexOf('(') + 1, operands[1].indexOf(')')).trim();
 			inst = new SD(reg1, reg2, offset, opcode, CommonConstants.LOADSTORE);
 			break;
 		case CommonConstants.DADD:

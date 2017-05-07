@@ -46,9 +46,10 @@ public class CodeLoader {
 		String[] split2 = partWithoutLabel.split(" ", 2);
 		opcode = split2[0].trim();
 		if (split2.length >= 2) {
-			String[] operands = split2[1].trim().split(" ");
-			for (int i = 0; i < operands.length; i++)
-				operands[i] = operands[i].replaceAll(",", "").trim();
+			String[] operands = split2[1].trim().split(",");
+			for (int i = 0; i < operands.length; i++){
+				operands[i] = operands[i].trim();
+			}
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, operands);
 		} else {
 			inst1 = InstructionLoader.getLoadedInstruction(opcode, null);
