@@ -90,7 +90,7 @@ public class Utilities {
 			scoreboardWriter.newLine();
 			scoreboardWriter.newLine();
 			String dcacheReq = "Total number of access requests for data cache:" + DataCache.numDcacheRequests;
-			String dcacheHits = "Number of instruction cache hits:" + (DataCache.numDcacheRequests - DataCache.numDcacheMiss);
+			String dcacheHits = "Number of data cache hits:" + (DataCache.numDcacheRequests - DataCache.numDcacheMiss);
 			scoreboardWriter.write(dcacheReq);
 			scoreboardWriter.newLine();
 			scoreboardWriter.write(dcacheHits);
