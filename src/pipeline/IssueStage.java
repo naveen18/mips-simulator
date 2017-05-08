@@ -32,9 +32,6 @@ public class IssueStage {
 		if(inst == null || inst.opcode.equals(CommonConstants.HLT)){
 			IssueStage.issueStageQueue.clear();
 			IssueStage.busy = false;
-//			if(instIndex < CodeLoader.programStore.size() - 1 && DecodeStage.decStageQueue.isEmpty()){
-//				Pipeline.scoreboard.get(scbdrowId).set(CommonConstants.ISSUE_COLUMN, Main.clockCycle);
-//			}
 			return;
 		}
 		
@@ -89,7 +86,6 @@ public class IssueStage {
 		}
 		// put the inst with the corresponding unit alloted to it in map
 		instUnitmap.put(instIndex, funit);
-		//System.out.println(instIndex + "inst issued");
 		
 		// instruction issued, remove the instruction from issue stage queue
 		issueStageQueue.poll();
