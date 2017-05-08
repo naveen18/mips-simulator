@@ -38,7 +38,7 @@ public class FetchStage {
 					DcacheProcess.DcacheProcessOn = false;
 					IcacheProcess.IcacheProcessOn = true;
 					IcacheProcess.address = instIndex;
-					IcacheProcess.cycleCount = 12;
+					IcacheProcess.cycleCount = 3*AppConfig.appConfig.getBlockSizeInWords();
 					Pipeline.owner = CommonConstants.ICACHE;
 					InstructionCache.numIcacheMiss++;
 					return;
