@@ -33,11 +33,6 @@ public class Pipeline {
 			DecodeStage.decodeInstruction();
 			IssueStage.issueInstruction();
 			FetchStage.fetchInstruction(Pipeline.instIndex);
-			if(Main.clockCycle > 2000){
-				//System.out.println("FED UP");
-				break;
-			}
-			//PrintMethods.printScoreBoard();
 		}
 		
 	}

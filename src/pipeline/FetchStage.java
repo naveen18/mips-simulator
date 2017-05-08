@@ -15,6 +15,9 @@ public class FetchStage {
 	
 	public static void fetchInstruction(int instIndex) {
 		if(instIndex > CodeLoader.programStore.size() - 1 && DecodeStage.branchAddress == -1){
+			if(allStagesEmpty()){
+				Pipeline.done = 1;
+			}
 			return;
 		}
 		if(instIndex == CodeLoader.programStore.size()){
@@ -27,8 +30,11 @@ public class FetchStage {
 		if(AppConfig.appConfig.isCacheOn){
 			if (!InstructionCache.presentInCache(instIndex)) {
 				if((IcacheProcess.IcacheProcessOn)){
+					//System.out.println("Icache working at" + Main.clockCycle + " for " + instIndex);
 					return;
-				} else if(DcacheProcess.startedAt == Main.clockCycle ||  DcacheProcess.startedAt == -1){
+				} else if(DcacheProcess.startedAt == Main.clockCycle ||  DcacheProcess.startedAt == -1 || DcacheProcess.startedAt  == Main.clockCycle - 1 && !Controller.firstWordMiss && Controller.secondWordMiss) {
+					//System.out.println("Icache miss at " + Main.clockCycle);
+					//System.out.println("Icache miss for "+  instIndex + " icach got bus at " + Main.clockCycle);
 					DcacheProcess.DcacheProcessOn = false;
 					IcacheProcess.IcacheProcessOn = true;
 					IcacheProcess.address = instIndex;
@@ -37,6 +43,11 @@ public class FetchStage {
 					InstructionCache.numIcacheMiss++;
 					return;
 				}
+				else{
+					//System.out.println("Icache miss for "+  instIndex + " but Dcache has bus at " + Main.clockCycle);
+					//System.out.println(DcacheProcess.startedAt);
+				}
+				return;
 			}
 		}
 		
@@ -44,6 +55,7 @@ public class FetchStage {
 			return;
 		}
 		
+		//System.out.println("Fetched " + instIndex + " at " + Main.clockCycle);
 		if(!Pipeline.branchIssued){	
 			//System.out.println("fetching " + instIndex + " at " + Main.clockCycle);
 			Pipeline.scoreboard.add(Pipeline.scoreboardRowId, new ArrayList<Integer>());
@@ -63,6 +75,11 @@ public class FetchStage {
 				return;
 			}
 		}
+	}
+	
+	public static boolean allStagesEmpty(){
+		return IssueStage.issueStageQueue.isEmpty() && DecodeStage.decStageQueue.isEmpty()
+				&& ExecuteStage.execStageQueue.isEmpty() && WriteBackStage.wbStageQueue.isEmpty();
 	}
 
 }
