@@ -47,6 +47,7 @@ public class FetchStage {
 					//System.out.println("Icache miss for "+  instIndex + " but Dcache has bus at " + Main.clockCycle);
 					//System.out.println(DcacheProcess.startedAt);
 				}
+				// since instruction is not in cache return
 				return;
 			}
 		}
@@ -55,7 +56,6 @@ public class FetchStage {
 			return;
 		}
 		
-		//System.out.println("Fetched " + instIndex + " at " + Main.clockCycle);
 		if(!Pipeline.branchIssued){	
 			//System.out.println("fetching " + instIndex + " at " + Main.clockCycle);
 			Pipeline.scoreboard.add(Pipeline.scoreboardRowId, new ArrayList<Integer>());
