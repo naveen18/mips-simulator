@@ -17,7 +17,7 @@ public class Main {
 		if(args.length < 4){
 			throw new Exception("Number of arguements can not be less than 4");
 		}
-		System.out.println("mail file begin");
+		//System.out.println("mail file begin");
 		AppConfig.updateConfig(args[2]);
 		CodeLoader.loadCode(args[0]);
 		InstructionCache.initCache();
