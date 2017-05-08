@@ -30,7 +30,6 @@ public class Main {
 			e.printStackTrace();
 		}
 		Pipeline.startPipeLine();
-		Utilities.printScoreBoard(args[3]);
 		Utilities.storeScoreBoard(args[3]);
 	}
 }

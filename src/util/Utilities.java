@@ -58,7 +58,7 @@ public class Utilities {
 		String headers = String.format(instFormat, "Instruction", "Fetch", "Issue", "Read", "Exec", "Write", "RAW",
 				"WAW", "Struct");
 		scoreboardWriter = new BufferedWriter(
-				new FileWriter(new File("/Users/naveen/Desktop/Architecture/result.txt")));
+				new FileWriter(new File(path)));
 		scoreboardWriter.write(headers);
 		scoreboardWriter.newLine();
 		scoreboardWriter.newLine();
